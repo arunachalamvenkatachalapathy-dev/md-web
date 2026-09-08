@@ -82,14 +82,6 @@
               <span style="margin-left: 4px;">↓</span>
             </a>
           </div>
-
-          <!-- Struck-Through Realtime Myth Rotator -->
-          <div style="display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);">
-            <span style="color: #EF4444; font-weight: 700;">ACTIVE TARGET:</span>
-            <span id="hero-myth-text" style="text-decoration: line-through; text-decoration-color: #EF4444; text-decoration-thickness: 2px; color: var(--ink-secondary);">
-              "Buy the dip on every stock and you'll never lose."
-            </span>
-          </div>
         </div>
 
         <!-- Right: 3D ISOMETRIC CREATOR FORENSIC REACTION CARD (SLIGHTLY TURNED & STRAIGHT ENOUGH + ₹500 RUPEE BURST) -->
@@ -119,14 +111,14 @@
               </div>
             </div>
 
-            <!-- Layer 2: Creator Reaction Video Media & Forensic Breakdown Sheet -->
+            <!-- Layer 2: Creator Forensic Media -->
             <div class="iso-card iso-card-middle">
               <div class="iso-host-media">
-                <img src="assets/img/creator_reaction.jpg" alt="Market Debunk Lead Investigator Reacting to Financial Myth">
+                <img src="assets/img/creator_reaction.jpg" alt="Market Debunk Lead Investigator Auditing Financial Myth">
                 <div class="iso-host-overlay" style="justify-content: flex-end;">
                   <div>
                     <span class="font-mono" style="color: var(--green); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 2px;">
-                      Lead Investigator // Reaction & Audit
+                      FINANCIAL FORENSICS HEADQUARTERS
                     </span>
                     <span style="font-size: 1.15rem; color: #FFFFFF; font-weight: 800; letter-spacing: -0.02em;">
                       Market Debunk Desk
@@ -134,20 +126,8 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Comparison Row -->
-              <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; border-radius: 14px; font-family: var(--font-mono); font-size: 0.72rem; display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: #94A3B8;">PROMISED: <span style="color: var(--green); font-weight: 700;">12.0% Yield</span></span>
-                <span style="color: #94A3B8;">AUDITED: <span style="color: var(--brick); font-weight: 700;">-38.4% Net</span></span>
-              </div>
-
-              <!-- Interactive ₹500 Rupee Burst Hint -->
-              <div onclick="triggerRupeeBurst(event)" style="margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.68rem; font-weight: 700; color: var(--green); background: rgba(0, 229, 153, 0.12); border: 1px dashed rgba(0, 229, 153, 0.4); padding: 5px 12px; border-radius: 9999px; text-align: center; cursor: pointer; transition: all 0.2s ease;">
-                <span>✦ CLICK CARD TO TRIGGER ₹500 RUPEE BURST 💸</span>
-              </div>
             </div>
 
-            <!-- Layer 3: Floating Verdict Badge -->
             <!-- Layer 3: Floating Verdict Badge (10 Forensic Verdicts + Catch Up + Research Web) -->
             <div class="iso-card-top">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
@@ -157,12 +137,19 @@
                 </div>
                 <span id="verdict-counter" style="font-family: var(--font-mono); font-size: 0.65rem; color: #94A3B8; background: rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">1/10</span>
               </div>
-              <p id="hero-verdict-text" class="font-mono" style="font-size: 0.74rem; color: #FFFFFF; line-height: 1.4; margin-bottom: 12px; font-weight: 600; min-height: 44px; transition: opacity 0.25s ease;">
+              <p id="hero-verdict-text" class="font-mono" style="font-size: 0.74rem; color: #FFFFFF; line-height: 1.4; margin-bottom: 10px; font-weight: 600; min-height: 44px; transition: opacity 0.25s ease;">
                 DO NOT BUY THE DIP: "Operating cash flow turned negative. Averaging down on zombie balance sheets destroys portfolios."
               </p>
+
+              <!-- Dynamic Touch Prompt: Prompts user to touch Catch Up to advance & trigger 500 Rupee blast -->
+              <div id="catchup-touch-prompt" class="catchup-touch-prompt" onclick="event.stopPropagation(); nextHeroVerdict(event);" title="Touch here or Catch Up to blast ₹500!">
+                <span class="touch-hand-icon">👉</span>
+                <span id="catchup-prompt-text">TOUCH <strong>CATCH UP</strong> TO BLAST <strong>₹500</strong> 💥</span>
+              </div>
+
               <div style="display: flex; gap: 8px;">
-                <button type="button" onclick="event.stopPropagation(); nextHeroVerdict();" class="btn-pill btn-pill-green" style="flex: 1; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Move to next forensic verdict">
-                  <span>Catch Up ⏭</span>
+                <button type="button" id="btn-catchup-verdict" onclick="event.stopPropagation(); nextHeroVerdict(event);" class="btn-pill btn-pill-green" style="flex: 1.2; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Touch to advance verdict & trigger ₹500 Rupee Blast">
+                  <span>Catch Up ⏭ (₹500 💸)</span>
                 </button>
                 <button type="button" onclick="event.stopPropagation(); openWebResearchModal();" class="btn-pill btn-pill-white" style="flex: 1; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Open real-time financial web research scanner">
                   <span>Research Web 🌐</span>

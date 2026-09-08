@@ -124,13 +124,30 @@ function initIsometricTilt() {
 // ₹500 INDIAN RUPEE BURST ENGINE
 // ==========================================================================
 function triggerRupeeBurst(e) {
-  let clickX = e ? e.clientX : null;
-  let clickY = e ? e.clientY : null;
+  let clickX = null;
+  let clickY = null;
+
+  if (e) {
+    if (typeof e.clientX === 'number' && (e.clientX > 0 || e.clientY > 0)) {
+      clickX = e.clientX;
+      clickY = e.clientY;
+    } else if (e.touches && e.touches.length > 0) {
+      clickX = e.touches[0].clientX;
+      clickY = e.touches[0].clientY;
+    } else if (e.changedTouches && e.changedTouches.length > 0) {
+      clickX = e.changedTouches[0].clientX;
+      clickY = e.changedTouches[0].clientY;
+    } else if (e.target && e.target.getBoundingClientRect) {
+      const rect = e.target.getBoundingClientRect();
+      clickX = rect.left + rect.width / 2;
+      clickY = rect.top + rect.height / 2;
+    }
+  }
 
   if (!clickX || !clickY) {
-    const stage = document.querySelector('.isometric-stage');
-    if (stage) {
-      const rect = stage.getBoundingClientRect();
+    const btn = document.getElementById('btn-catchup-verdict') || document.querySelector('.isometric-stage');
+    if (btn) {
+      const rect = btn.getBoundingClientRect();
       clickX = rect.left + rect.width / 2;
       clickY = rect.top + rect.height / 2;
     } else {
@@ -437,10 +454,29 @@ const OFFICIAL_VERDICTS = [
 let currentVerdictIndex = 0;
 let verdictAutoTimer = null;
 
-function nextHeroVerdict() {
+function nextHeroVerdict(e) {
   currentVerdictIndex = (currentVerdictIndex + 1) % OFFICIAL_VERDICTS.length;
   updateVerdictDisplay();
   restartVerdictTimer();
+
+  // 1. Trigger the ₹500 Rupee Blast on Catch Up click or touch!
+  triggerRupeeBurst(e);
+
+  // 2. Dynamic visual touch prompt feedback
+  const promptText = document.getElementById('catchup-prompt-text');
+  const promptPill = document.getElementById('catchup-touch-prompt');
+  if (promptText && promptPill) {
+    promptPill.style.background = 'rgba(0, 229, 153, 0.28)';
+    promptPill.style.borderColor = 'var(--green)';
+    promptText.innerHTML = `🎉 <strong>+₹500 BLASTED!</strong> TOUCH AGAIN FOR (${currentVerdictIndex + 1}/${OFFICIAL_VERDICTS.length}) ⏭`;
+    setTimeout(() => {
+      if (promptPill && promptText) {
+        promptPill.style.background = '';
+        promptPill.style.borderColor = '';
+        promptText.innerHTML = `👉 TOUCH <strong>CATCH UP</strong> TO BLAST <strong>₹500</strong> 💥`;
+      }
+    }, 2400);
+  }
 }
 
 function updateVerdictDisplay() {
