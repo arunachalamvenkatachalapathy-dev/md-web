@@ -375,7 +375,7 @@ body {
 .isometric-viewport {
   perspective: 1600px;
   width: 100%;
-  min-height: 430px;
+  min-height: 395px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -385,7 +385,7 @@ body {
 
 .isometric-stage {
   width: 355px;
-  height: 425px;
+  height: 385px;
   position: relative;
   transform-style: preserve-3d;
   /* Slightly turned, straight enough as requested */
@@ -484,7 +484,7 @@ body {
 
 .iso-host-media {
   width: 100%;
-  height: 255px;
+  height: 250px;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
@@ -507,14 +507,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 12px 14px 18px 14px;
+  padding: 12px 14px 22px 14px;
   pointer-events: none;
 }
 
 /* Layer 3: Floating Verdict Badge (Upper Layer — Spread Wide) */
 .iso-card-top {
   position: absolute;
-  bottom: -20px;
+  bottom: -16px;
   left: -14px;
   right: -14px;
   width: auto;
@@ -545,10 +545,10 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .isometric-viewport { min-height: 450px; }
-  .isometric-stage { width: 340px; height: 435px; }
-  .iso-host-media { height: 250px; }
-  .iso-card-top { left: -10px; right: -10px; bottom: -20px; }
+  .isometric-viewport { min-height: 400px; }
+  .isometric-stage { width: 340px; height: 385px; }
+  .iso-host-media { height: 245px; }
+  .iso-card-top { left: -10px; right: -10px; bottom: -16px; }
 }
 
 @media (max-width: 768px) {
