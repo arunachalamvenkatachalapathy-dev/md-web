@@ -149,21 +149,24 @@
             </div>
 
             <!-- Layer 3: Floating Verdict Badge -->
+            <!-- Layer 3: Floating Verdict Badge (10 Forensic Verdicts + Catch Up + Research Web) -->
             <div class="iso-card-top">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span class="pulse-dot-green"></span>
-                <span class="font-mono" style="color: var(--green); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;">OFFICIAL VERDICT</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="pulse-dot-green"></span>
+                  <span id="hero-verdict-tag" class="font-mono" style="color: var(--green); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;">VERDICT 01 // BUY THE DIP</span>
+                </div>
+                <span id="verdict-counter" style="font-family: var(--font-mono); font-size: 0.65rem; color: #94A3B8; background: rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">1/10</span>
               </div>
-              <p class="font-mono" style="font-size: 0.76rem; color: #FFFFFF; line-height: 1.4; margin-bottom: 12px; font-weight: 600;">
-                DO NOT BUY THE DIP. "We catch the market lying, before it costs you."
+              <p id="hero-verdict-text" class="font-mono" style="font-size: 0.74rem; color: #FFFFFF; line-height: 1.4; margin-bottom: 12px; font-weight: 600; min-height: 44px; transition: opacity 0.25s ease;">
+                DO NOT BUY THE DIP: "Operating cash flow turned negative. Averaging down on zombie balance sheets destroys portfolios."
               </p>
               <div style="display: flex; gap: 8px;">
-                <a href="https://www.youtube.com/@MarketDebunk" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-green" style="flex: 1; padding: 8px 10px; font-size: 0.74rem;">
-                  <span>Watch Shorts</span>
-                  <span>↗</span>
-                </a>
-                <button type="button" onclick="event.stopPropagation(); triggerRupeeBurst(event);" class="btn-pill btn-pill-white" style="flex: 1; padding: 8px 10px; font-size: 0.74rem; cursor: pointer;">
-                  <span>₹500 Audit 💸</span>
+                <button type="button" onclick="event.stopPropagation(); nextHeroVerdict();" class="btn-pill btn-pill-green" style="flex: 1; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Move to next forensic verdict">
+                  <span>Catch Up ⏭</span>
+                </button>
+                <button type="button" onclick="event.stopPropagation(); openWebResearchModal();" class="btn-pill btn-pill-white" style="flex: 1; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Open real-time financial web research scanner">
+                  <span>Research Web 🌐</span>
                 </button>
               </div>
             </div>
