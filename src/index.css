@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #03060B;
+  --panel: #070D16;
+  --panel-2: #0C1524;
+  --paper: #FFFFFF;
+  --paper-dim: #94A3B8;
+  --amber: #00E599;
+  --green: #00E599;
+  --brick: #EF4444;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-accent: rgba(0, 229, 153, 0.35);
+  --hairline-brick: rgba(239, 68, 68, 0.35);
+}
+
+/* Accessibility & Focus Rings */
+:focus-visible {
+  outline: 2px solid #00E599;
+  outline-offset: 3px;
+}
+
+/* Myth Strikethrough Effect */
+.myth-strike {
+  position: relative;
+  display: inline-block;
+  color: #94A3B8;
+  font-style: italic;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.myth-strike::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 52%;
+  height: 2px;
+  background-color: #EF4444;
+  transform: rotate(-1.5deg);
+  transition: all 0.3s ease;
+}
+
+/* Continuous Marquee Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+    overflow-x: auto;
+  }
+  .myth-fade-transition {
+    transition: none !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0E1A2B;
+}
+::-webkit-scrollbar-thumb {
+  background: #1B2C48;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #283F66;
+}
