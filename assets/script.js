@@ -168,22 +168,13 @@ function triggerRupeeBurst(e) {
     document.body.appendChild(container);
   }
 
-  // 1. Expanding Ripple
+  // 1. Expanding Ripple (fades immediately)
   const ripple = document.createElement('div');
   ripple.className = 'rupee-ripple';
   ripple.style.left = clickX + 'px';
   ripple.style.top = clickY + 'px';
   container.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 900);
-
-  // 2. Floating +₹500 Protected Badge
-  const badge = document.createElement('div');
-  badge.className = 'rupee-badge-particle';
-  badge.style.left = clickX + 'px';
-  badge.style.top = clickY + 'px';
-  badge.innerHTML = `<span>🛡️</span> <span class="amount">+₹500</span> <span>CAPITAL PROTECTED</span>`;
-  container.appendChild(badge);
-  setTimeout(() => badge.remove(), 1950);
+  setTimeout(() => ripple.remove(), 600);
 
   // 3. Realistic Miniature ₹500 Banknotes (bursting outward & floating)
   const notesCount = 7;
@@ -459,23 +450,16 @@ function nextHeroVerdict(e) {
   updateVerdictDisplay();
   restartVerdictTimer();
 
-  // 1. Trigger the ₹500 Rupee Blast on Catch Up click or touch!
+  // 1. Trigger the ₹500 Rupee Banknote Blast on Catch Up!
   triggerRupeeBurst(e);
 
-  // 2. Dynamic visual touch prompt feedback
-  const promptText = document.getElementById('catchup-prompt-text');
-  const promptPill = document.getElementById('catchup-touch-prompt');
-  if (promptText && promptPill) {
-    promptPill.style.background = 'rgba(0, 229, 153, 0.28)';
-    promptPill.style.borderColor = 'var(--green)';
-    promptText.innerHTML = `🎉 <strong>+₹500 BLASTED!</strong> TOUCH AGAIN FOR (${currentVerdictIndex + 1}/${OFFICIAL_VERDICTS.length}) ⏭`;
+  // 2. Subtle button feedback glow
+  const btn = document.getElementById('btn-catchup-verdict');
+  if (btn) {
+    btn.style.boxShadow = '0 0 16px rgba(0, 229, 153, 0.7)';
     setTimeout(() => {
-      if (promptPill && promptText) {
-        promptPill.style.background = '';
-        promptPill.style.borderColor = '';
-        promptText.innerHTML = `👉 TOUCH <strong>CATCH UP</strong> TO BLAST <strong>₹500</strong> 💥`;
-      }
-    }, 2400);
+      if (btn) btn.style.boxShadow = '';
+    }, 300);
   }
 }
 

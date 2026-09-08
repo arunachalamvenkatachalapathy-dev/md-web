@@ -836,31 +836,42 @@ body {
 }
 
 /* ==========================================================================
-   5. TICKER TAPE IN LIGHT MODE
+   5. TICKER TAPE IN LIGHT MODE (NIFTY 50 REAL CONSTITUENTS)
    ========================================================================== */
 .atlas-ticker {
   background: #FFFFFF;
-  padding: 12px 0;
+  padding: 14px 0;
   overflow: hidden;
   position: relative;
+  border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
 }
 
 .atlas-ticker-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 35s linear infinite;
+  animation: marquee-scroll 140s linear infinite;
+}
+
+.atlas-ticker:hover .atlas-ticker-track {
+  animation-play-state: paused;
 }
 
 .atlas-ticker-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 0 24px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.atlas-ticker-item span:last-child {
+  color: var(--ink-primary);
   font-weight: 600;
 }
 
@@ -870,6 +881,7 @@ body {
   border-radius: 50%;
   background: var(--green-dark);
   box-shadow: 0 0 8px rgba(0, 229, 153, 0.6);
+  flex-shrink: 0;
 }
 
 @keyframes marquee-scroll {
