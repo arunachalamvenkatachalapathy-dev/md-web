@@ -753,6 +753,134 @@ window.searchWebPreset = searchWebPreset;
 window.performWebResearch = performWebResearch;
 
 // ==========================================================================
+// 8. COMMUNITY FUNDING DESK ENGINE
+// ==========================================================================
+let currentFundingAmount = 199;
+
+const FUNDING_IMPACT_MAP = {
+  199: "Funds 1 MCA-21 statutory company registry document pull",
+  499: "Funds 1 comprehensive DRHP Red Herring prospectus forensic audit",
+  999: "Funds forensic data scraping infrastructure & server compute",
+  2499: "Sponsors an exhaustive whistleblower investigative documentary"
+};
+
+function selectFundingTier(amount, btnEl) {
+  currentFundingAmount = Number(amount);
+  
+  // Update active state on buttons
+  const buttons = document.querySelectorAll('.funding-tier-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  // Update input and labels
+  const inputEl = document.getElementById('funding-custom-amt');
+  if (inputEl) inputEl.value = currentFundingAmount;
+
+  const submitLbl = document.getElementById('btn-funding-submit-lbl');
+  if (submitLbl) submitLbl.textContent = `Fund ₹${currentFundingAmount.toLocaleString('en-IN')} via UPI / Card →`;
+
+  const impactEl = document.getElementById('funding-impact-text');
+  if (impactEl) {
+    impactEl.textContent = FUNDING_IMPACT_MAP[currentFundingAmount] || `Contributes ₹${currentFundingAmount.toLocaleString('en-IN')} to independent forensics`;
+  }
+}
+
+function updateCustomFundingAmt(val) {
+  const num = parseInt(val, 10);
+  if (isNaN(num) || num < 1) return;
+  currentFundingAmount = num;
+
+  // Sync active tier button if custom amount matches exactly
+  const buttons = document.querySelectorAll('.funding-tier-btn');
+  buttons.forEach(btn => {
+    const btnAmt = Number(btn.querySelector('.tier-amt')?.textContent.replace(/[^0-9]/g, ''));
+    if (btnAmt === currentFundingAmount) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  const submitLbl = document.getElementById('btn-funding-submit-lbl');
+  if (submitLbl) submitLbl.textContent = `Fund ₹${currentFundingAmount.toLocaleString('en-IN')} via UPI / Card →`;
+
+  const impactEl = document.getElementById('funding-impact-text');
+  if (impactEl) {
+    impactEl.textContent = FUNDING_IMPACT_MAP[currentFundingAmount] || `Contributes ₹${currentFundingAmount.toLocaleString('en-IN')} directly to independent forensic data`;
+  }
+}
+
+function toggleFundingQR() {
+  const drawer = document.getElementById('funding-qr-drawer');
+  if (!drawer) return;
+  const isHidden = (drawer.style.display === 'none' || drawer.style.display === '');
+  drawer.style.display = isHidden ? 'block' : 'none';
+  if (isHidden) {
+    drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function copyFundingUPI() {
+  const upiId = 'marketdebunk@upi';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(upiId).then(() => {
+      const copyBtn = document.getElementById('funding-copy-btn-text');
+      if (copyBtn) {
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy UPI 📋'; }, 2200);
+      }
+    }).catch(() => {
+      fallbackCopyUPI(upiId);
+    });
+  } else {
+    fallbackCopyUPI(upiId);
+  }
+}
+
+function fallbackCopyUPI(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    const copyBtn = document.getElementById('funding-copy-btn-text');
+    if (copyBtn) {
+      copyBtn.textContent = '✓ Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy UPI 📋'; }, 2200);
+    }
+  } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function triggerFundingContribution(e) {
+  // Fire Rupee Burst celebration
+  triggerRupeeBurst(e);
+
+  const alertEl = document.getElementById('funding-success-alert');
+  if (alertEl) {
+    alertEl.style.display = 'block';
+    alertEl.innerHTML = `
+      <div style="font-size: 1.05rem; margin-bottom: 4px; font-weight: 800;">🎉 Thank You for Backing Market Debunk!</div>
+      <div>Your contribution of <strong>₹${currentFundingAmount.toLocaleString('en-IN')}</strong> directly protects retail investors from predatory financial traps.</div>
+      <div style="margin-top: 8px; font-size: 0.74rem; color: var(--ink-secondary);">Scan the UPI QR code below or transfer directly to <code>marketdebunk@upi</code> to complete dispatch.</div>
+    `;
+    // Also open the QR code drawer
+    const drawer = document.getElementById('funding-qr-drawer');
+    if (drawer) drawer.style.display = 'block';
+    alertEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+window.selectFundingTier = selectFundingTier;
+window.updateCustomFundingAmt = updateCustomFundingAmt;
+window.toggleFundingQR = toggleFundingQR;
+window.copyFundingUPI = copyFundingUPI;
+window.triggerFundingContribution = triggerFundingContribution;
+
+// ==========================================================================
 // INIT ON LOAD
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {

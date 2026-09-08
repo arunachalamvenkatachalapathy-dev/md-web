@@ -484,8 +484,7 @@ body {
 
 .iso-host-media {
   width: 100%;
-  height: 100%;
-  min-height: 290px;
+  height: 235px;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
@@ -497,84 +496,36 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 22%;
   display: block;
 }
 
 .iso-host-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, transparent 40%, rgba(15, 23, 42, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, transparent 40%, rgba(15, 23, 42, 0.95) 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 12px;
 }
 
-/* Layer 3: Floating Verdict Badge */
+/* Layer 3: Floating Verdict Badge (Upper Layer — Spread Wide) */
 .iso-card-top {
   position: absolute;
-  bottom: -10px;
-  right: -10px;
-  width: 270px;
-  transform: translateZ(60px);
+  bottom: -16px;
+  left: -14px;
+  right: -14px;
+  width: auto;
+  transform: translateZ(65px);
   background: rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(0, 229, 153, 0.55);
   box-shadow: 
-    0 16px 32px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(0, 229, 153, 0.22);
-  border-radius: 16px;
-  padding: 10px 12px;
+    0 24px 48px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(0, 229, 153, 0.22);
+  border-radius: 18px;
+  padding: 14px 16px;
   z-index: 10;
-}
-
-/* Dynamic Touch Prompt Styling */
-.catchup-touch-prompt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 8px;
-  padding: 5px 8px;
-  background: rgba(0, 229, 153, 0.12);
-  border: 1px dashed rgba(0, 229, 153, 0.55);
-  border-radius: 9999px;
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  font-weight: 700;
-  color: var(--green);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 10px rgba(0, 229, 153, 0.2);
-  animation: promptPulse 2.2s infinite ease-in-out;
-}
-
-.catchup-touch-prompt:hover {
-  background: rgba(0, 229, 153, 0.22);
-  border-color: var(--green);
-  transform: scale(1.02);
-}
-
-.touch-hand-icon {
-  display: inline-block;
-  animation: pointHand 1s infinite alternate ease-in-out;
-  font-size: 0.72rem;
-}
-
-@keyframes pointHand {
-  0% { transform: translateX(-2px); }
-  100% { transform: translateX(3px); }
-}
-
-@keyframes promptPulse {
-  0%, 100% {
-    border-color: rgba(0, 229, 153, 0.4);
-    box-shadow: 0 0 8px rgba(0, 229, 153, 0.15);
-  }
-  50% {
-    border-color: rgba(0, 229, 153, 0.95);
-    box-shadow: 0 0 16px rgba(0, 229, 153, 0.5);
-  }
 }
 
 .pulse-dot-green {
@@ -596,7 +547,7 @@ body {
   .isometric-viewport { min-height: 440px; }
   .isometric-stage { width: 340px; height: 440px; }
   .iso-host-media { height: 210px; }
-  .iso-card-top { width: 260px; right: -10px; bottom: -16px; }
+  .iso-card-top { left: -10px; right: -10px; bottom: -16px; }
 }
 
 @media (max-width: 768px) {
@@ -620,6 +571,7 @@ body {
   .iso-card-top {
     position: relative;
     bottom: auto;
+    left: auto;
     right: auto;
     width: 100%;
     margin-top: 14px;
@@ -2273,4 +2225,65 @@ body {
 .atlas-footer {
   background: #FFFFFF;
   padding: 48px 36px 36px;
+}
+
+/* ==========================================================================
+   13. COMMUNITY FUNDING DESK
+   ========================================================================== */
+.funding-desk-card {
+  transition: all 0.3s ease;
+}
+
+.funding-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .funding-tier-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.funding-tier-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.funding-tier-btn:hover {
+  border-color: var(--green);
+  background: rgba(0, 229, 153, 0.05);
+}
+
+.funding-tier-btn.active {
+  background: rgba(0, 229, 153, 0.12);
+  border-color: var(--green);
+  box-shadow: 0 0 12px rgba(0, 229, 153, 0.22);
+}
+
+.funding-tier-btn .tier-amt {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--ink-primary);
+}
+
+.funding-tier-btn.active .tier-amt {
+  color: var(--green-dark);
+}
+
+.funding-tier-btn .tier-lbl {
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  margin-top: 2px;
 }

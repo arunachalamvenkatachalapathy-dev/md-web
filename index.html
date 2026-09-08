@@ -35,14 +35,15 @@
         <ul class="atlas-nav-links">
           <li><a href="#debunky">Ask Debunky</a></li>
           <li><a href="#products">Store</a></li>
+          <li><a href="#funding">Fund Us</a></li>
           <li><a href="#creator">Pitch Desk</a></li>
         </ul>
       </nav>
 
       <!-- Pill Buttons on Right -->
       <div class="atlas-header-actions">
-        <a href="#creator" class="btn-pill btn-pill-ghost">
-          <span>Pitch a Myth</span>
+        <a href="#funding" class="btn-pill btn-pill-ghost" style="border-color: rgba(0, 229, 153, 0.5); background: rgba(0, 229, 153, 0.08); color: var(--green-dark); font-weight: 700;">
+          <span>Fund Us</span>
           <span>↗</span>
         </a>
         <a href="https://www.youtube.com/@MarketDebunk" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-black">
@@ -140,12 +141,6 @@
               <p id="hero-verdict-text" class="font-mono" style="font-size: 0.74rem; color: #FFFFFF; line-height: 1.4; margin-bottom: 10px; font-weight: 600; min-height: 44px; transition: opacity 0.25s ease;">
                 DO NOT BUY THE DIP: "Operating cash flow turned negative. Averaging down on zombie balance sheets destroys portfolios."
               </p>
-
-              <!-- Dynamic Touch Prompt: Prompts user to touch Catch Up to advance & trigger 500 Rupee blast -->
-              <div id="catchup-touch-prompt" class="catchup-touch-prompt" onclick="event.stopPropagation(); nextHeroVerdict(event);" title="Touch here or Catch Up to blast ₹500!">
-                <span class="touch-hand-icon">👉</span>
-                <span id="catchup-prompt-text">TOUCH <strong>CATCH UP</strong> TO BLAST <strong>₹500</strong> 💥</span>
-              </div>
 
               <div style="display: flex; gap: 8px;">
                 <button type="button" id="btn-catchup-verdict" onclick="event.stopPropagation(); nextHeroVerdict(event);" class="btn-pill btn-pill-green" style="flex: 1.2; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Touch to advance verdict & trigger ₹500 Rupee Blast">
@@ -593,6 +588,128 @@
             <div id="pitch-status-msg" style="display: none; font-family: var(--font-mono); font-size: 0.82rem; margin-top: 16px; padding: 14px; background: var(--green-light); border: 1px solid rgba(0,229,153,0.4); border-radius: 12px; color: var(--green-dark); font-weight: 600;">
             </div>
           </form>
+
+          <!-- ============================================================
+               COMMUNITY FUNDING DESK // RECEIVE FUNDING (AS PER USER SPEC)
+               ============================================================ -->
+          <div id="funding" class="funding-desk-card" style="margin-top: 28px; padding: 22px; background: linear-gradient(145deg, #F8FAFC 0%, #F1F5F9 100%); border: 1px solid rgba(0, 229, 153, 0.4); border-radius: 20px; box-shadow: 0 10px 28px rgba(0,0,0,0.04); position: relative; overflow: hidden;">
+            
+            <!-- Header Row -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div class="atlas-badge-pill" style="margin-bottom: 0; background: rgba(0, 229, 153, 0.12); border-color: rgba(0, 229, 153, 0.4); color: var(--green-dark);">
+                <span class="sparkle">💛</span>
+                <span>COMMUNITY FUNDING DESK // 100% UNBIASED</span>
+              </div>
+              <span class="atlas-pulse-dot" style="width: 8px; height: 8px;" title="Funding Desk Active"></span>
+            </div>
+
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--ink-primary); letter-spacing: -0.02em; margin-bottom: 6px;">
+              Fund Independent Market Forensics
+            </h3>
+            <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.5; margin-bottom: 16px;">
+              We accept ₹0 from brokers, promoters, and guru courses. Your funding directly finances raw MCA-21 corporate registry pulls, DRHP prospectus forensic audits, and investigative reporting for retail investors.
+            </p>
+
+            <!-- Tier Selection Chips -->
+            <div style="margin-bottom: 14px;">
+              <label style="display: block; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+                Select Contribution Tier
+              </label>
+              <div class="funding-tier-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                <button type="button" class="funding-tier-btn active" onclick="selectFundingTier(199, this)">
+                  <span class="tier-amt">₹199</span>
+                  <span class="tier-lbl">Micro Backer</span>
+                </button>
+                <button type="button" class="funding-tier-btn" onclick="selectFundingTier(499, this)">
+                  <span class="tier-amt">₹499</span>
+                  <span class="tier-lbl">Audit Sponsor</span>
+                </button>
+                <button type="button" class="funding-tier-btn" onclick="selectFundingTier(999, this)">
+                  <span class="tier-amt">₹999</span>
+                  <span class="tier-lbl">Retail Shield</span>
+                </button>
+                <button type="button" class="funding-tier-btn" onclick="selectFundingTier(2499, this)">
+                  <span class="tier-amt">₹2,499</span>
+                  <span class="tier-lbl">Patron Pillar</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Amount Display & Impact -->
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 12px; padding: 8px 12px;">
+              <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: var(--green-dark);">₹</span>
+              <input id="funding-custom-amt" type="number" value="199" min="10" step="10" class="atlas-input" style="border: none; padding: 0; font-family: var(--font-mono); font-size: 1.05rem; font-weight: 800; color: var(--ink-primary); width: 85px; outline: none; box-shadow: none;" oninput="updateCustomFundingAmt(this.value)">
+              <span id="funding-impact-text" style="font-size: 0.74rem; color: var(--ink-muted); border-left: 1px solid var(--border-light); padding-left: 10px; flex: 1;">
+                Funds 1 MCA-21 statutory company registry document pull
+              </span>
+            </div>
+
+            <!-- Payment Action Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; gap: 8px;">
+                <button type="button" onclick="triggerFundingContribution(event)" class="btn-pill btn-pill-green" style="flex: 1.3; padding: 11px 16px; font-size: 0.82rem; justify-content: center;" title="Contribute via UPI / Card / NetBanking">
+                  <span id="btn-funding-submit-lbl">Fund ₹199 via UPI / Card →</span>
+                </button>
+                <button type="button" onclick="toggleFundingQR()" class="btn-pill btn-pill-black" style="flex: 1; padding: 11px 12px; font-size: 0.78rem; justify-content: center;" title="Show UPI QR Code">
+                  <span>Scan UPI QR 📱</span>
+                </button>
+              </div>
+
+              <!-- One-Click UPI ID Copy Strip -->
+              <div style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px dashed rgba(0, 229, 153, 0.45); border-radius: 10px; padding: 7px 12px; font-size: 0.72rem;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="font-family: var(--font-mono); color: var(--ink-muted); font-size: 0.65rem; font-weight: 700;">OFFICIAL UPI ID:</span>
+                  <span id="funding-upi-id" style="font-family: var(--font-mono); font-weight: 800; color: var(--ink-primary);">marketdebunk@upi</span>
+                </div>
+                <button type="button" onclick="copyFundingUPI()" style="background: none; border: none; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--green-dark); cursor: pointer; padding: 2px 6px;">
+                  <span id="funding-copy-btn-text">Copy UPI 📋</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Expandable QR Code Drawer -->
+            <div id="funding-qr-drawer" style="display: none; margin-top: 14px; padding: 14px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 14px; text-align: center;">
+              <div style="font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; letter-spacing: 0.04em;">
+                SCAN WITH ANY UPI APP (GPay / PhonePe / Paytm / BHIM)
+              </div>
+              <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+                <svg width="150" height="150" viewBox="0 0 160 160" fill="none" style="background: #FFFFFF; padding: 6px; border: 1px solid #E2E8F0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <rect x="10" y="10" width="40" height="40" rx="6" stroke="#0F172A" stroke-width="5" fill="none"/>
+                  <rect x="22" y="22" width="16" height="16" rx="2" fill="#0F172A"/>
+                  <rect x="110" y="10" width="40" height="40" rx="6" stroke="#0F172A" stroke-width="5" fill="none"/>
+                  <rect x="122" y="22" width="16" height="16" rx="2" fill="#0F172A"/>
+                  <rect x="10" y="110" width="40" height="40" rx="6" stroke="#0F172A" stroke-width="5" fill="none"/>
+                  <rect x="22" y="122" width="16" height="16" rx="2" fill="#0F172A"/>
+                  <circle cx="65" cy="20" r="4" fill="#0F172A"/>
+                  <circle cx="80" cy="20" r="4" fill="#0F172A"/>
+                  <circle cx="95" cy="20" r="4" fill="#0F172A"/>
+                  <circle cx="65" cy="35" r="4" fill="#0F172A"/>
+                  <circle cx="95" cy="35" r="4" fill="#0F172A"/>
+                  <circle cx="65" cy="50" r="4" fill="#0F172A"/>
+                  <circle cx="80" cy="50" r="4" fill="#0F172A"/>
+                  <rect x="62" y="62" width="36" height="36" rx="8" fill="#020617" stroke="#00E599" stroke-width="2"/>
+                  <text x="80" y="85" text-anchor="middle" font-family="monospace" font-size="14" font-weight="900" fill="#00E599">MD</text>
+                  <circle cx="65" cy="115" r="4" fill="#0F172A"/>
+                  <circle cx="80" cy="115" r="4" fill="#0F172A"/>
+                  <circle cx="95" cy="115" r="4" fill="#0F172A"/>
+                  <circle cx="115" cy="75" r="4" fill="#0F172A"/>
+                  <circle cx="135" cy="75" r="4" fill="#0F172A"/>
+                  <circle cx="115" cy="95" r="4" fill="#0F172A"/>
+                  <circle cx="135" cy="120" r="4" fill="#0F172A"/>
+                  <circle cx="120" cy="140" r="4" fill="#0F172A"/>
+                  <circle cx="140" cy="140" r="4" fill="#0F172A"/>
+                </svg>
+              </div>
+              <div style="font-size: 0.72rem; color: var(--ink-secondary);">
+                Verified Merchant: <strong>Market Debunk Media &amp; Research Desk</strong>
+              </div>
+            </div>
+
+            <!-- Success Alert Area -->
+            <div id="funding-success-alert" style="display: none; margin-top: 14px; padding: 14px; background: var(--green-light); border: 1px solid rgba(0,229,153,0.5); border-radius: 12px; color: var(--green-dark); font-size: 0.8rem; font-weight: 700; text-align: center;">
+            </div>
+
+          </div>
         </div>
 
         <!-- Desk Info with New Full Channel Logo Lockup -->
@@ -659,6 +776,7 @@
           <ul style="display: flex; flex-wrap: wrap; gap: 24px; list-style: none; font-size: 0.85rem; font-weight: 600;">
             <li><a href="#debunky" style="text-decoration: none; color: var(--ink-secondary);">Ask Debunky</a></li>
             <li><a href="#products" style="text-decoration: none; color: var(--ink-secondary);">Store</a></li>
+            <li><a href="#funding" style="text-decoration: none; color: var(--green-dark); font-weight: 700;">Fund Us</a></li>
             <li><a href="#creator" style="text-decoration: none; color: var(--ink-secondary);">Pitch Desk</a></li>
           </ul>
         </nav>
