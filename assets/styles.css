@@ -2025,6 +2025,199 @@ body {
   40% { transform: scale(1.1); opacity: 1; }
 }
 
+/* High-Urgency Capital Scare & AI Plan Upgrade Card */
+.debunky-scare-card {
+  background: #FFF5F5;
+  border: 2px solid #EF4444;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(239, 68, 68, 0.14);
+  margin-top: 12px;
+  animation: scare-card-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scare-card-enter {
+  0% { opacity: 0; transform: scale(0.96) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.scare-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #DC2626;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  margin-bottom: 14px;
+}
+
+.scare-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  animation: scare-pulse 1.2s infinite;
+}
+
+@keyframes scare-pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.scare-headline {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #991B1B;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.scare-body {
+  color: #7F1D1D;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.scare-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+  .scare-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scare-stat-box {
+  background: #FFFFFF;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.scare-stat-num {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #DC2626;
+  display: block;
+}
+
+.scare-stat-lbl {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #991B1B;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-top: 2px;
+}
+
+.scare-quote-box {
+  background: rgba(255, 255, 255, 0.8);
+  border-left: 3px solid #EF4444;
+  padding: 12px 16px;
+  border-radius: 4px 10px 10px 4px;
+  font-size: 0.82rem;
+  color: #7F1D1D;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.scare-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.scare-btn-primary {
+  background: #DC2626 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #B91C1C !important;
+  font-weight: 800 !important;
+  padding: 12px 22px !important;
+  font-size: 0.85rem !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+  text-decoration: none;
+}
+
+.scare-btn-primary:hover {
+  background: #B91C1C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45);
+}
+
+.scare-btn-secondary {
+  background: #FFFFFF !important;
+  color: var(--ink-primary) !important;
+  border: 1px solid var(--border-light) !important;
+  font-weight: 700 !important;
+  padding: 12px 20px !important;
+  font-size: 0.85rem !important;
+  text-decoration: none;
+}
+
+.scare-btn-secondary:hover {
+  border-color: #DC2626 !important;
+  color: #DC2626 !important;
+}
+
+.scare-footer-reassurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #991B1B;
+  border-top: 1px solid rgba(239, 68, 68, 0.2);
+  padding-top: 12px;
+}
+
+/* Debunky Audit Counter Badge */
+.debunky-audit-counter-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+  background: rgba(0, 229, 153, 0.12);
+  color: var(--green-dark);
+  border: 1px solid rgba(0, 229, 153, 0.3);
+}
+
+.debunky-audit-counter-badge.final {
+  background: rgba(239, 68, 68, 0.12);
+  color: #DC2626;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+@keyframes debunky-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.debunky-shake-alert {
+  animation: debunky-shake 0.35s ease;
+}
+
 /* ==========================================================================
    12. FOOTER (100% LIGHT MODE)
    ========================================================================== */

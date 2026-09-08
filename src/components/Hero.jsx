@@ -63,13 +63,13 @@ export default function Hero() {
             <ArrowUpRight size={18} />
           </a>
 
-          {/* Ghost CTA */}
+          {/* AI Assistant CTA */}
           <a
-            href="#channels"
-            className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-mono font-medium tracking-wide uppercase text-paper bg-transparent border border-hairline hover:border-paper-dim/60 hover:bg-panel transition-colors text-center"
+            href="#debunky"
+            className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-mono font-medium tracking-wide uppercase text-paper bg-transparent border border-green/40 hover:border-green hover:bg-green/10 transition-colors text-center"
           >
-            <span>See all channels</span>
-            <ChevronRight size={18} className="text-paper-dim" />
+            <span>Use AI Assistant</span>
+            <span className="text-green">✦</span>
           </a>
         </div>
 
