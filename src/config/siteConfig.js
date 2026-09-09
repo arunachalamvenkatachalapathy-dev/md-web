@@ -19,7 +19,7 @@ export const siteConfig = {
     telegramTamil: "https://t.me/marketdebunk_tamil",
     linkedin: import.meta.env.VITE_LINKEDIN_URL || "https://www.linkedin.com/company/143659978/",
     facebook: "https://facebook.com/marketdebunk",
-    email: "contact@marketdebunk.com"
+    email: "marketdebunk@gmail.com"
   },
 
   // Google Drive Live Feed Secrets & Configuration

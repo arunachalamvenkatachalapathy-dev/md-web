@@ -106,7 +106,7 @@ export default function ProductsStore() {
             <ShieldCheck size={16} className="text-amber" />
             <span>Direct Digital Delivery · 100% Ad-Free & Sponsor-Free Research</span>
           </div>
-          <span>Questions? Contact the research desk at contact@marketdebunk.com</span>
+          <span>Questions? Contact the research desk at marketdebunk@gmail.com</span>
         </div>
 
       </div>

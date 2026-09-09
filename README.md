@@ -18,7 +18,7 @@ The platform combines a **React 18 Video Hub**, **Debunky AI Share Market Forens
 | **Telegram (Global)** | `@MarketDebunk` | [https://t.me/MarketDebunk](https://t.me/MarketDebunk) |
 | **LinkedIn** | `Market Debunk Company` | [https://www.linkedin.com/company/143659978/](https://www.linkedin.com/company/143659978/) |
 | **Facebook** | `Market Debunk` | [https://facebook.com/marketdebunk](https://facebook.com/marketdebunk) |
-| **Direct Inquiries** | `contact@marketdebunk.com` | [mailto:contact@marketdebunk.com](mailto:contact@marketdebunk.com) |
+| **Direct Inquiries** | `marketdebunk@gmail.com` | [mailto:marketdebunk@gmail.com](mailto:marketdebunk@gmail.com) |
 
 ---
 

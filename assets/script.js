@@ -15,7 +15,7 @@ const CONFIG = {
   INSTAGRAM_URL: 'https://www.instagram.com/marketdebunk',
   TELEGRAM_URL: 'https://t.me/marketdebunk',
   LINKEDIN_URL: 'https://www.linkedin.com/company/marketdebunk',
-  EMAIL: 'contact@marketdebunk.com',
+  EMAIL: 'marketdebunk@gmail.com',
   POLL_INTERVAL_MS: 5 * 60 * 1000,
   CACHE_KEY: 'md_channel_latest_stream'
 };
@@ -1019,7 +1019,7 @@ function openRequisitionModal(productId) {
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <a href="mailto:contact@marketdebunk.com?subject=${encodeURIComponent(item.emailSubject)}" class="btn-pill btn-pill-black" style="justify-content: center; padding: 12px 18px; font-size: 0.85rem;">
+        <a href="mailto:marketdebunk@gmail.com?subject=${encodeURIComponent(item.emailSubject)}" class="btn-pill btn-pill-black" style="justify-content: center; padding: 12px 18px; font-size: 0.85rem;">
           <span>Dispatch Requisition via Email</span>
           <span class="btn-icon-bubble">↗</span>
         </a>
@@ -1053,7 +1053,7 @@ function closeRequisitionModal() {
 function copyRequisitionSummary(productId) {
   const item = PRODUCT_CATALOG[productId];
   if (!item) return;
-  const summary = `MARKET DEBUNK REQUISITION\nItem: ${item.title}\nPrice: ${item.price} (${item.billing})\nFormat: ${item.format}\nContact: contact@marketdebunk.com`;
+  const summary = `MARKET DEBUNK REQUISITION\nItem: ${item.title}\nPrice: ${item.price} (${item.billing})\nFormat: ${item.format}\nContact: marketdebunk@gmail.com`;
   
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(summary).then(() => {
