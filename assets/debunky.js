@@ -435,19 +435,26 @@ function initDebunkyChat() {
 /**
  * Web Search Toggle Controller
  */
-window.toggleWebSearch = function() {
-  isWebSearchActive = !isWebSearchActive;
-  const btn = document.getElementById('btn-web-search-toggle');
-  const txt = document.getElementById('web-search-text');
-  if (btn && txt) {
+window.handleWebSearchToggle = function(isChecked) {
+  isWebSearchActive = Boolean(isChecked);
+  const switchInput = document.getElementById('websearch-toggle-switch');
+  const statusIndicator = document.getElementById('websearch-status-indicator');
+
+  if (switchInput) switchInput.checked = isWebSearchActive;
+
+  if (statusIndicator) {
     if (isWebSearchActive) {
-      btn.classList.add('active');
-      txt.textContent = 'Web Search: ON';
+      statusIndicator.textContent = 'ACTIVE';
+      statusIndicator.className = 'websearch-status-tag active';
     } else {
-      btn.classList.remove('active');
-      txt.textContent = 'Web Search: OFF';
+      statusIndicator.textContent = 'OFF';
+      statusIndicator.className = 'websearch-status-tag';
     }
   }
+};
+
+window.toggleWebSearch = function() {
+  window.handleWebSearchToggle(!isWebSearchActive);
 };
 
 /**

@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css?v=2.3">
 </head>
 <body>
 
@@ -461,10 +461,6 @@
               <span class="atlas-pulse-dot"></span>
               <span>GEMMA 4-26B // UNLIMITED</span>
             </div>
-            <button type="button" id="btn-web-search-toggle" onclick="toggleWebSearch()" class="btn-web-search-pill active" title="Toggle real-time Google Search grounding">
-              <span class="pulse-dot-green"></span>
-              <span id="web-search-text">Web Search: ON</span>
-            </button>
             <button type="button" onclick="clearDebunkyChat()" class="btn-pill btn-pill-ghost" style="padding: 6px 14px; font-size: 0.74rem;">
               <span>Reset Session ↻</span>
             </button>
@@ -534,6 +530,24 @@
           </div>
         </div>
 
+        <!-- Web Search Toggle Control Bar -->
+        <div class="debunky-input-toolbar">
+          <label class="websearch-toggle-control" for="websearch-toggle-switch" title="Toggle Real-Time Google Search Grounding">
+            <span class="websearch-globe-icon">🌐</span>
+            <span class="websearch-toggle-text">Live Web Grounding:</span>
+            <div class="ios-switch">
+              <input type="checkbox" id="websearch-toggle-switch" checked onchange="handleWebSearchToggle(this.checked)">
+              <span class="ios-slider"></span>
+            </div>
+            <span id="websearch-status-indicator" class="websearch-status-tag active">ACTIVE</span>
+          </label>
+
+          <div class="debunky-engine-tag">
+            <span class="atlas-pulse-dot"></span>
+            <span>REAL-TIME AUDIT DESK</span>
+          </div>
+        </div>
+
         <!-- Input Box Form with Voice Typing -->
         <form id="debunky-form" class="debunky-input-form">
           <div class="debunky-input-wrap">
@@ -541,7 +555,7 @@
               type="text"
               id="debunky-query-input"
               class="debunky-input"
-              placeholder="Ask anything or audit any stock tip with Gemma 4-26B + Live Web Search..."
+              placeholder="Audit any stock tip, claim, or balance sheet anomaly..."
               autocomplete="off"
               required
             />
@@ -555,7 +569,7 @@
               <span id="voice-typing-label">Voice</span>
             </button>
           </div>
-          <button type="submit" class="btn-pill btn-pill-green" style="padding: 12px 24px; font-size: 0.85rem;">
+          <button type="submit" class="btn-pill btn-pill-green" style="padding: 12px 24px; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0;">
             <span>Audit Claim</span>
             <span>→</span>
           </button>
@@ -563,9 +577,9 @@
 
         <!-- Red Badge Just Below Typing Area Directing to Products -->
         <div style="display: flex; justify-content: center; margin-top: 14px;">
-          <a href="#products" class="badge-red-advanced">
-            <span class="atlas-pulse-dot" style="background: #EF4444;"></span>
-            <span>Want to use advanced features? Direct to products &amp; quant pipelines →</span>
+          <a href="#products" class="badge-red-advanced" style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px; border-radius: 9999px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.35); color: #DC2626; text-decoration: none; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; transition: all 0.2s ease;">
+            <span class="atlas-pulse-dot" style="background: #EF4444; box-shadow: 0 0 6px #EF4444;"></span>
+            <span>Want advanced institutional features? Direct to products &amp; quant pipelines →</span>
           </a>
         </div>
       </div>
@@ -1048,25 +1062,9 @@
 
   </div>
 
-  <!-- =========================================================================
-       HOVERING RAPPER AI AGENT (MASCOT WITH CHAIN & DIRECT TERMINAL NAVIGATION)
-       ========================================================================= -->
-  <div id="floating-rapper-agent" class="floating-rapper-agent" onclick="scrollToDebunkyTerminal(event)" title="Ask Debunky AI Agent (Click to audit stock tips)">
-    <div class="rapper-speech-bubble" id="rapper-speech-bubble">
-      <span class="rapper-pulse-dot"></span>
-      <span id="rapper-speech-text">Yo! Audit that stock tip before you get rekt. Click me! 🎤</span>
-    </div>
-    <div class="rapper-avatar-circle">
-      <img src="assets/img/rapper_ai_agent.jpg" alt="Debunky AI Rapper Agent with Gold Chain">
-      <div class="rapper-status-beacon">
-        <span>GEMMA 4</span>
-      </div>
-    </div>
-  </div>
-
   <!-- Interactive Scripts -->
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=2.2"></script>
   <!-- Debunky AI Chatbot Engine -->
-  <script src="assets/debunky.js"></script>
+  <script src="assets/debunky.js?v=2.2"></script>
 </body>
 </html>
