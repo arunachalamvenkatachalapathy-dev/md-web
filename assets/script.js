@@ -1080,12 +1080,58 @@ function initWhistleblowerTicket() {
   }
 }
 
-function dispatchEmailRequisition(productId) {
-  const item = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['ai-agents-trading'];
-  const subject = encodeURIComponent(item.emailSubject);
-  const body = encodeURIComponent(item.emailBody || `Hi Market Debunk Team,\n\nI would like to requisition ${item.title} (${item.price}).\n\nPlease provide payment and delivery instructions.\n\nThank you!`);
-  const mailtoUrl = `mailto:marketdebunk@gmail.com?subject=${subject}&body=${body}`;
-  window.location.href = mailtoUrl;
+function dispatchEmailRequisition(productId, event) {
+  if (event && event.preventDefault) {
+    event.preventDefault();
+  }
+  const item = (typeof PRODUCT_CATALOG !== 'undefined' && PRODUCT_CATALOG[productId])
+    ? PRODUCT_CATALOG[productId]
+    : (typeof PRODUCT_CATALOG !== 'undefined' ? PRODUCT_CATALOG['ai-agents-trading'] : null);
+
+  const toEmail = "marketdebunk@gmail.com";
+  const subject = item ? item.emailSubject : "Requisition Request // Market Debunk";
+  const body = item ? (item.emailBody || `Hi Market Debunk Team,\n\nI would like to requisition ${item.title} (${item.price}).\n\nPlease provide payment and delivery instructions.\n\nThank you!`) : "Hi Market Debunk Team,\n\nI would like to requisition this deliverable.\n\nThank you!";
+
+  const mailtoUrl = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(toEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = mailtoUrl;
+  } else {
+    // Open Gmail web compose in a new tab with toEmail pre-filled in Send To
+    window.open(gmailUrl, '_blank');
+    // Also trigger native mail client redirect
+    setTimeout(() => {
+      try {
+        window.location.href = mailtoUrl;
+      } catch (err) {}
+    }, 300);
+  }
+}
+
+function dispatchGeneralEmail(event) {
+  if (event && event.preventDefault) {
+    event.preventDefault();
+  }
+  const toEmail = "marketdebunk@gmail.com";
+  const subject = "Inquiry // Market Debunk Research Desk";
+  const body = "Hi Market Debunk Team,\n\nI would like to get in touch regarding:\n\n";
+
+  const mailtoUrl = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(toEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = mailtoUrl;
+  } else {
+    window.open(gmailUrl, '_blank');
+    setTimeout(() => {
+      try {
+        window.location.href = mailtoUrl;
+      } catch (err) {}
+    }, 300);
+  }
 }
 
 window.selectFundingTier = selectFundingTier;
@@ -1097,6 +1143,7 @@ window.openRequisitionModal = openRequisitionModal;
 window.closeRequisitionModal = closeRequisitionModal;
 window.copyRequisitionSummary = copyRequisitionSummary;
 window.dispatchEmailRequisition = dispatchEmailRequisition;
+window.dispatchGeneralEmail = dispatchGeneralEmail;
 
 // ==========================================================================
 // INIT ON LOAD
