@@ -123,7 +123,10 @@ function initIsometricTilt() {
 // ==========================================================================
 // ₹500 INDIAN RUPEE BURST ENGINE
 // ==========================================================================
+let autoBurstFired = false;
+
 function triggerRupeeBurst(e) {
+  autoBurstFired = true;
   let clickX = null;
   let clickY = null;
 
@@ -1144,6 +1147,91 @@ window.closeRequisitionModal = closeRequisitionModal;
 window.copyRequisitionSummary = copyRequisitionSummary;
 window.dispatchEmailRequisition = dispatchEmailRequisition;
 window.dispatchGeneralEmail = dispatchGeneralEmail;
+window.triggerRupeeBurst = triggerRupeeBurst;
+window.initAutoMoneyBurstOnOpen = initAutoMoneyBurstOnOpen;
+
+// ==========================================================================
+// AUTO-TRIGGER ₹500 MONEY BURST ON INITIAL OPEN
+// Demonstrates touch area interactivity so first-time visitors discover the effect
+// ==========================================================================
+function initAutoMoneyBurstOnOpen() {
+  if (autoBurstFired) return;
+
+  const executeBurst = () => {
+    if (autoBurstFired) return;
+    autoBurstFired = true;
+
+    try {
+      const btn = document.getElementById('btn-catchup-verdict');
+      const stage = document.querySelector('.isometric-stage') || document.querySelector('.isometric-viewport');
+      const target = btn || stage;
+
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        const clickX = rect.left + rect.width / 2;
+        const clickY = rect.top + rect.height / 2;
+
+        // Visual tactile pulse on the button to guide eye to the touch area
+        if (btn) {
+          btn.style.transition = 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+          btn.style.boxShadow = '0 0 24px rgba(0, 229, 153, 0.95)';
+          btn.style.transform = 'scale(1.05)';
+          setTimeout(() => {
+            if (btn) {
+              btn.style.boxShadow = '';
+              btn.style.transform = '';
+            }
+          }, 650);
+        }
+
+        // Fire Rupee Burst from touch target center
+        triggerRupeeBurst({ clientX: clickX, clientY: clickY });
+      } else {
+        triggerRupeeBurst();
+      }
+    } catch (err) {
+      console.warn('[AutoMoneyBurst] Notice:', err);
+    }
+  };
+
+  const scheduleBurst = () => {
+    const card = document.querySelector('.isometric-viewport') || document.getElementById('btn-catchup-verdict');
+    if (card && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !autoBurstFired) {
+            observer.disconnect();
+            setTimeout(executeBurst, 950);
+          }
+        });
+      }, { threshold: 0.25 });
+      observer.observe(card);
+
+      // Fallback timer if intersection observer takes too long
+      setTimeout(() => {
+        if (!autoBurstFired) {
+          try { observer.disconnect(); } catch (e) {}
+          executeBurst();
+        }
+      }, 2500);
+    } else {
+      setTimeout(executeBurst, 1000);
+    }
+  };
+
+  // If page opened in a background tab, wait until user activates tab
+  if (typeof document !== 'undefined' && document.hidden) {
+    const onVisibilityChange = () => {
+      if (!document.hidden) {
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+        setTimeout(scheduleBurst, 300);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+  } else {
+    scheduleBurst();
+  }
+}
 
 // ==========================================================================
 // INIT ON LOAD
@@ -1155,10 +1243,12 @@ if (typeof document !== 'undefined') {
     initHeroVerdicts();
     fetchLatestDriveUpload();
     initWhistleblowerTicket();
+    initAutoMoneyBurstOnOpen();
 
     setInterval(() => {
       if (!document.hidden) fetchLatestDriveUpload();
     }, CONFIG.POLL_INTERVAL_MS);
   });
 }
+
 
