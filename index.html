@@ -60,8 +60,8 @@
         <!-- Left: High-Impact Typography & Manifesto -->
         <div>
           <div class="atlas-eyebrow-pill">
-            <span class="sparkle">✦</span>
-            <span>The Premier Financial Forensics Media Channel</span>
+            <span class="atlas-pulse-dot"></span>
+            <span>FORENSIC RADAR // STATUTORY EXCHANGE AUDIT DESK</span>
           </div>
 
           <h1 class="atlas-hero-h1">
@@ -75,11 +75,10 @@
           <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px;">
             <a href="https://www.youtube.com/@MarketDebunkTamil" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-black">
               <span>Watch Latest Investigation</span>
-              <span>↗</span>
+              <span class="btn-icon-bubble">↗</span>
             </a>
             <a href="#debunky" class="btn-pill btn-pill-ghost" style="border-color: rgba(0, 229, 153, 0.45); background: rgba(0, 229, 153, 0.08); color: var(--green-dark); font-weight: 700;">
-              <span class="sparkle" style="margin-right: 4px;">✦</span>
-              <span>Use AI Assistant</span>
+              <span>Ask Debunky Terminal</span>
               <span style="margin-left: 4px;">↓</span>
             </a>
           </div>
@@ -144,10 +143,10 @@
 
               <div style="display: flex; gap: 8px;">
                 <button type="button" id="btn-catchup-verdict" onclick="event.stopPropagation(); nextHeroVerdict(event);" class="btn-pill btn-pill-green" style="flex: 1.2; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Touch to advance verdict & trigger ₹500 Rupee Blast">
-                  <span>Catch Up ⏭ (₹500 💸)</span>
+                  <span>Advance Verdict →</span>
                 </button>
                 <button type="button" onclick="event.stopPropagation(); openWebResearchModal();" class="btn-pill btn-pill-white" style="flex: 1; padding: 8px 10px; font-size: 0.72rem; cursor: pointer; white-space: nowrap; justify-content: center;" title="Open real-time financial web research scanner">
-                  <span>Research Web 🌐</span>
+                  <span>Web Scanner ↗</span>
                 </button>
               </div>
             </div>
@@ -434,13 +433,13 @@
       </div>
     </section>
 
-    <!-- 8. DEBUNKY — SHARE MARKET FORENSICS AI CHATBOT (100% LIGHT MODE) -->
+    <!-- 8. DEBUNKY — SHARE MARKET FORENSICS CASE TERMINAL (100% LIGHT MODE) -->
     <section id="debunky" class="atlas-section">
       <div class="atlas-section-head">
-        <span class="atlas-badge-pill">FINANCIAL FORENSICS AI // SHARE MARKET ASSISTANT</span>
-        <h2 class="atlas-h2">Ask Debunky — Share Market AI</h2>
+        <span class="atlas-badge-pill">FINANCIAL FORENSICS TERMINAL // STATUTORY AUDIT ENGINE</span>
+        <h2 class="atlas-h2">Ask Debunky — Share Market Terminal</h2>
         <p class="atlas-lead">
-          Audit any viral stock tip, high dividend pitch, F&O scheme, or balance sheet anomaly. Debunky interrogates claims against SEBI regulations, free cash flows, and audited exchange disclosures.
+          Audit any viral stock tip, high-dividend scheme, F&O advisory, or corporate balance-sheet anomaly. Debunky interrogates claims against SEBI LODR regulations, audited free cash flows, and exchange disclosures.
         </p>
       </div>
 
@@ -449,70 +448,84 @@
         <div class="debunky-header">
           <div class="debunky-brand">
             <div class="debunky-avatar">
-              <img src="assets/img/channel_logo.png" alt="Debunky AI Logo">
+              <img src="assets/img/channel_logo.png" alt="Debunky Terminal Logo">
             </div>
             <div>
-              <div class="debunky-title">DEBUNKY <span>AI</span></div>
-              <span class="debunky-subtitle">Autonomous Share Market Forensics & Statutory Audit Engine</span>
+              <div class="debunky-title">DEBUNKY <span>TERMINAL</span></div>
+              <span class="debunky-subtitle">Autonomous Share Market Forensics &amp; Statutory Audit Engine</span>
             </div>
           </div>
 
           <div style="display: flex; align-items: center; gap: 12px;">
             <div class="debunky-status-tag">
               <span class="atlas-pulse-dot"></span>
-              <span>ONLINE // SEBI COMPLIANT</span>
+              <span>ONLINE // SEBI LODR ACTIVE</span>
             </div>
             <button type="button" onclick="clearDebunkyChat()" class="btn-pill btn-pill-ghost" style="padding: 6px 14px; font-size: 0.74rem;">
-              <span>Reset Chat ↻</span>
+              <span>Reset Session ↻</span>
             </button>
           </div>
         </div>
 
-        <!-- Chat History Stream -->
+        <!-- Forensic Case Record Stream -->
         <div id="debunky-chat-stream" class="debunky-chat-window">
-          <!-- Initial Welcome Message from Debunky -->
-          <div class="debunky-message bot">
-            <div class="debunky-msg-avatar">
-              <img src="assets/img/channel_logo.png" alt="Debunky">
+          <!-- Initial Case Ledger Welcome File -->
+          <div class="debunky-case-record">
+            <div class="case-meta-header">
+              <div class="case-meta-left">
+                <span class="atlas-pulse-dot"></span>
+                <span class="case-ref-tag">SYSTEM // FORENSIC TERMINAL READY</span>
+                <span>// SEBI LODR AUDIT ENGINE</span>
+              </div>
+              <div>
+                <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">AUDITS REMAINING: 4/4</span>
+              </div>
             </div>
-            <div class="debunky-msg-bubble">
-              <strong style="color: var(--green-dark); font-size: 0.95rem; display: block; margin-bottom: 4px;">
-                வணக்கம் & Welcome to Market Debunk Tamil!
-              </strong>
-              <p style="margin: 0;">
-                I am <strong>Debunky</strong>, your AI financial forensics assistant. Ask me about any share market query, viral stock tip, high dividend pitch, SEBI regulation, or corporate balance sheet red flag.
+            <div class="case-body">
+              <div class="case-title">
+                <span>Market Debunk Forensic Intake Console</span>
+                <span class="case-verdict-banner case-verdict-hazard" style="background: rgba(0, 229, 153, 0.1); color: var(--green-dark); border-color: rgba(0, 229, 153, 0.3);">
+                  OPERATIONAL
+                </span>
+              </div>
+              <p class="case-finding-text">
+                Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly against statutory SEBI exchange filings and verified cash-flow statements.
               </p>
+              <div class="case-citation-row">
+                <span class="case-citation-label">AUDIT PROTOCOL:</span>
+                <span>Queries interrogated against BSE/NSE statutory filings, MCA-21 disclosures &amp; cash flow ledgers.</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Pre-Configured Clickable Prompt Chips -->
+        <!-- Pre-Configured Forensic Prompt Chips (No Emojis) -->
         <div class="debunky-chips-container">
-          <span class="debunky-chips-label">SELECT A POPULAR MARKET QUERY:</span>
+          <span class="debunky-chips-label">SELECT FORENSIC AUDIT INTAKE:</span>
           <div class="debunky-chips-grid">
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('Is a 12% dividend yield on REITs really safe?')">
-              💡 12% REIT Dividend Safe?
+              [REIT/ROC] 12% Dividend Trap
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('Can I trust Telegram stock tips or 90% algo trading bots?')">
-              💡 90% Algo Bot & Telegram Tips
+              [ALGO/F&O] 90% Win-Rate Bot
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('Why is Buy the Dip dangerous on debt-heavy companies?')">
-              💡 Why Buy the Dip is a Trap
+              [BUY-DIP] Zombie Balance Sheets
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('How do promoters dump unlisted shares in Pre-IPOs via OFS?')">
-              💡 Pre-IPO 100x OFS Dump
+              [PRE-IPO] 100x OFS Dump
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('Tata Motors: What does consolidated debt vs EV transition show?')">
-              💡 Tata Motors Debt vs EV
+              [TATA/FCF] Debt vs EV Cycle
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('What are SEBI official statistics on retail F&O losses?')">
-              💡 SEBI 93% F&O Loss Report
+              [SEBI/93%] Retail F&O Losses
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('How does promoter share pledging trigger a market crash?')">
-              💡 Promoter Pledging Risk
+              [PLEDGE] Promoter Margin Call
             </button>
             <button type="button" class="debunky-chip" onclick="askDebunkyPrompt('What is the difference between Accounting Profit and Free Cash Flow?')">
-              💡 P/E vs Free Cash Flow
+              [CFO/FCF] Cash Flow vs P/E
             </button>
           </div>
         </div>
@@ -523,7 +536,7 @@
             type="text"
             id="debunky-query-input"
             class="debunky-input"
-            placeholder="Ask Debunky any share market query or paste a viral claim..."
+            placeholder="Audit any share market query, stock tip, or viral claim against statutory filings..."
             autocomplete="off"
             required
           />
@@ -535,261 +548,290 @@
       </div>
     </section>
 
-    <!-- 9. PRODUCTS & INTELLIGENCE STORE -->
+    <!-- 9. PRODUCTS & INTELLIGENCE STORE (ASYMMETRICAL BENTO // BESPOKE NATIVE) -->
     <section id="products" class="atlas-section">
       <div class="atlas-section-head">
-        <span class="atlas-badge-pill">FIELD MANUALS & FINANCIAL WEAPONRY</span>
-        <h2 class="atlas-h2">Products & Intelligence</h2>
+        <span class="atlas-badge-pill">FIELD MANUALS &amp; FINANCIAL WEAPONRY</span>
+        <h2 class="atlas-h2">Products &amp; Intelligence</h2>
         <p class="atlas-lead">
-          The identical forensic models, automated spreadsheets, and deconstruction playbooks we use in our video investigations.
+          The identical forensic models, automated valuation spreadsheets, and deconstruction playbooks we use in our video investigations.
         </p>
       </div>
 
       <div class="atlas-store-grid">
         
-        <!-- Product 1: The Retail Trap -->
-        <div class="atlas-product-card featured">
+        <!-- Product 1: Flagship Dossier (Spans 2 columns on desktop) -->
+        <div class="atlas-product-card span-two featured">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--ink-primary); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px;">
-                PLAYBOOK / NOTION
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [FILE] NOTION WORKSPACE + 140P FIELD MANUAL
               </span>
-              <span style="background: var(--green-light); color: var(--green-dark); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 9999px; border: 1px solid rgba(0, 229, 153, 0.35);">
-                MOST POPULAR
+              <span class="product-status-tag">
+                FLAGSHIP FORENSIC DOSSIER
               </span>
             </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
-              The Retail Trap
+            <h3 class="product-title">
+              The Retail Trap: 50 Forensic Teardowns
             </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
-              50 viral financial myths mathematically dismantled with real historical filings, loss probabilities, and defensive rules.
+            <p class="product-desc">
+              50 viral financial myths mathematically dismantled with raw historical exchange filings, loss probabilities, and defensive forensic rules.
             </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ 50 deep-dive forensic case studies</li>
-              <li>✓ Statutory exchange citations included</li>
-              <li>✓ Notion dashboard + PDF field manual</li>
-              <li>✓ Lifetime digital edition updates</li>
+
+            <!-- Sample Chapter Preview Box -->
+            <div class="product-sample-index">
+              <span class="product-sample-title">Audited Case File Index (Sample Preview):</span>
+              <ul class="product-sample-list">
+                <li><span class="case-id">CASE #04:</span> The Phantom 12% Yield (Public REITs Return of Capital Trap)</li>
+                <li><span class="case-id">CASE #19:</span> The 90% Win-Rate Algo Trap (Left-Tail Gamma Blowup)</li>
+                <li><span class="case-id">CASE #33:</span> The Promoter Pledging Cascade (Lower Circuit Lockout Mechanism)</li>
+              </ul>
+            </div>
+
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">140P PDF</span> Complete forensic manual with statutory BSE/NSE citations</li>
+              <li><span class="product-feature-tag">NOTION</span> Interactive audit database &amp; retail loss probability calculator</li>
+              <li><span class="product-feature-tag">LIFETIME</span> Continuous digital edition updates on emerging market schemes</li>
             </ul>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹999</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹499</span>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹499</span>
+              <span class="product-price-note">One-Time Access // Full Notion + PDF</span>
             </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Order: The Retail Trap Playbook" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
-              <span>Acquire</span>
-              <span>↗</span>
-            </a>
+            <button type="button" onclick="openRequisitionModal('retail-trap')" class="btn-requisition">
+              <span>Acquire Dossier</span>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
           </div>
         </div>
 
         <!-- Product 2: Forensic Valuation Model -->
         <div class="atlas-product-card">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--bg-surface); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-light);">
-                SHEET + LOOM VIDEO
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [TOOLKIT] .XLSX / MACRO-READY
               </span>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); font-weight: 600;">RESEARCH TOOLKIT</span>
+              <span class="product-status-tag">
+                RESEARCH ENGINE
+              </span>
             </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
+            <h3 class="product-title">
               Valuation Engine
             </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
+            <p class="product-desc">
               Automated financial spreadsheet model used to uncover working capital traps, promoter dilution, and artificial EBITDA growth.
             </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ Automated Reverse DCF & Owner Earnings</li>
-              <li>✓ Red-flag working capital warning script</li>
-              <li>✓ 30-min Loom video analyzing live filing</li>
-              <li>✓ Compatible with Google Sheets & Excel</li>
+
+            <!-- Live Spreadsheet Telemetry Preview Box -->
+            <div class="product-telemetry-preview">
+              <div class="telemetry-cell"><span>MODEL</span><span>Reverse DCF</span></div>
+              <div class="telemetry-cell"><span>STRESS</span><span>Altman Z: 1.42</span></div>
+              <div class="telemetry-cell"><span>AUDIT</span><span>Beneish M: -1.8</span></div>
+            </div>
+
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">REVERSE DCF</span> Implied revenue growth expectations model</li>
+              <li><span class="product-feature-tag">CASH FLOW</span> Working capital red-flag warning script</li>
+              <li><span class="product-feature-tag">WALKTHROUGH</span> 30-min Loom video analyzing live 10-K filing</li>
             </ul>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹2,499</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹1,299</span>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹1,299</span>
+              <span class="product-price-note">Lifetime Access // Google Sheets &amp; Excel</span>
             </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Order: Valuation Engine Toolkit" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
-              <span>Get Engine</span>
-              <span>↗</span>
-            </a>
+            <button type="button" onclick="openRequisitionModal('valuation-engine')" class="btn-requisition">
+              <span>Acquire Model</span>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
           </div>
         </div>
 
-        <!-- Product 3: Debunk Insider Community -->
+        <!-- Product 3: AI Agents for Trading -->
         <div class="atlas-product-card">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--bg-surface); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-light);">
-                TELEGRAM VIP DISPATCH
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [PIPELINE] MULTI-AGENT / API
               </span>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); font-weight: 600;">MEMBERSHIP</span>
-            </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
-              Debunk Insider
-            </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
-              Real-time radar alerts whenever a dangerous corporate pump or finfluencer trap starts gaining viral traction.
-            </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ Early warning bulletins before trades</li>
-              <li>✓ Weekly forensic analysis briefings</li>
-              <li>✓ Private subscriber Q&A channel</li>
-              <li>✓ Unfiltered raw filings archive</li>
-            </ul>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹599/mo</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹299/mo</span>
-            </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Subscription: Debunk Insider VIP" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
-              <span>Join VIP</span>
-              <span>↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Product 4: AI Agents for Trading -->
-        <div class="atlas-product-card">
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--bg-surface); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-light);">
-                AUTONOMOUS AI / TRADING
-              </span>
-              <span style="background: rgba(0, 229, 153, 0.1); color: var(--green-dark); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 9999px; border: 1px solid rgba(0, 229, 153, 0.35);">
-                NEW RELEASE
+              <span class="product-status-tag">
+                QUANT ARSENAL
               </span>
             </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
+            <h3 class="product-title">
               AI Agents for Trading
             </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
+            <p class="product-desc">
               Autonomous multi-agent algorithmic execution framework monitoring institutional liquidity sweeps and order book imbalances.
             </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ Real-time multi-agent algorithmic market scans</li>
-              <li>✓ Risk-managed position sizing & stop-loss triggers</li>
-              <li>✓ Zero emotional bias execution protocols</li>
-              <li>✓ Telegram & Webhook instant trading alert integration</li>
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">MULTI-AGENT</span> Algorithmic liquidity sweeps &amp; order book scans</li>
+              <li><span class="product-feature-tag">RISK MATRIX</span> Position sizing &amp; mathematical stop-loss bounds</li>
+              <li><span class="product-feature-tag">WEBHOOKS</span> Instant Telegram &amp; Webhook alert integration</li>
             </ul>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹1,999/mo</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹999/mo</span>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹999/mo</span>
+              <span class="product-price-note">Institutional Subscription // API Access</span>
             </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Subscription: AI Agents for Trading (₹999/mo)" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
+            <button type="button" onclick="openRequisitionModal('ai-agents-trading')" class="btn-requisition">
               <span>Subscribe</span>
-              <span>↗</span>
-            </a>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4: Debunk Insider Community -->
+        <div class="atlas-product-card">
+          <div>
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [DISPATCH] TELEGRAM VIP
+              </span>
+              <span class="product-status-tag">
+                MEMBERSHIP
+              </span>
+            </div>
+            <h3 class="product-title">
+              Debunk Insider
+            </h3>
+            <p class="product-desc">
+              Real-time radar alerts whenever a dangerous corporate pump, operator scheme, or finfluencer trap starts gaining viral traction.
+            </p>
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">RADAR</span> Pre-market pump bulletins before retail trades</li>
+              <li><span class="product-feature-tag">BRIEFINGS</span> Weekly forensic breakdown of statutory filings</li>
+              <li><span class="product-feature-tag">ARCHIVE</span> Unfiltered raw exchange filings database</li>
+            </ul>
+          </div>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹299/mo</span>
+              <span class="product-price-note">Monthly VIP Dispatch // Cancel Anytime</span>
+            </div>
+            <button type="button" onclick="openRequisitionModal('debunk-insider')" class="btn-requisition">
+              <span>Join VIP</span>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
           </div>
         </div>
 
         <!-- Product 5: Agentic AI Workflow -->
         <div class="atlas-product-card">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--bg-surface); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-light);">
-                WORKFLOW AUTOMATION
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [CODE] PYTHON GRAPH
               </span>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); font-weight: 600;">PRO BLUEPRINT</span>
+              <span class="product-status-tag">
+                BLUEPRINT
+              </span>
             </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
+            <h3 class="product-title">
               Agentic AI Workflow
             </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
+            <p class="product-desc">
               Full-stack agentic automation pipeline designed for deep financial statement audits, news sentiment filtering, and quarterly filing extraction.
             </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ Ready-to-deploy LangChain / LlamaIndex agent graph</li>
-              <li>✓ Automated 10-K & statutory report parsing pipeline</li>
-              <li>✓ Fine-tuned prompt chains for forensic accounting</li>
-              <li>✓ Complete source code + visual architecture blueprint</li>
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">LANGCHAIN</span> Ready-to-deploy LlamaIndex / LangGraph pipeline</li>
+              <li><span class="product-feature-tag">10-K PARSER</span> Automated statutory annual report parsing engine</li>
+              <li><span class="product-feature-tag">PROMPTS</span> Fine-tuned prompt chains for forensic accounting</li>
             </ul>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹999</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹499</span>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹499</span>
+              <span class="product-price-note">One-Time Access // Full Source Code</span>
             </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Order: Agentic AI Workflow (₹499)" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
-              <span>Get Workflow</span>
-              <span>↗</span>
-            </a>
+            <button type="button" onclick="openRequisitionModal('agentic-ai-workflow')" class="btn-requisition">
+              <span>Get Blueprint</span>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
           </div>
         </div>
 
-        <!-- Product 6: Automation Share Tracker (Keep Updated) -->
+        <!-- Product 6: Automation Share Tracker -->
         <div class="atlas-product-card">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="background: var(--bg-surface); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-light);">
-                ALWAYS SYNCED / CLOUD
+            <div class="product-meta-row">
+              <span class="product-format-badge">
+                [CLOUD] CONTINUOUS SYNC
               </span>
-              <span style="background: rgba(2, 132, 199, 0.1); color: #0284C7; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 9999px; border: 1px solid rgba(2, 132, 199, 0.35);">
-                LIVE TRACKER
+              <span class="product-status-tag">
+                LIVE MONITOR
               </span>
             </div>
-            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink-primary);">
+            <h3 class="product-title">
               Automation Share Tracker
             </h3>
-            <p style="color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 24px;">
+            <p class="product-desc">
               Continuous cloud sync engine tracking your stock holdings, price alerts, insider transactions, and earnings calendar updates automatically.
             </p>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--ink-secondary); border-top: 1px solid var(--border-light); padding-top: 18px; margin-bottom: 32px;">
-              <li>✓ Automated live price & shareholding updates</li>
-              <li>✓ Instant alerts on promoter pledge & insider trades</li>
-              <li>✓ Cloud Google Sheets & Telegram notification pipeline</li>
-              <li>✓ Continuous 24/7 background sync & quarterly alerts</li>
+            <ul class="product-feature-list">
+              <li><span class="product-feature-tag">CLOUD RELAY</span> Live Google Sheets price &amp; shareholding updates</li>
+              <li><span class="product-feature-tag">INSIDER RADAR</span> Alerts on promoter pledge &amp; block deals</li>
+              <li><span class="product-feature-tag">24/7 SYNC</span> Continuous background sync &amp; quarterly alerts</li>
             </ul>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 20px;">
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: line-through; margin-right: 6px;">₹899/mo</span>
-              <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">₹499/mo</span>
+          <div class="product-footer-row">
+            <div class="product-price-block">
+              <span class="product-price-val">₹499/mo</span>
+              <span class="product-price-note">Continuous Cloud Sync // 24/7 Alerts</span>
             </div>
-            <a href="mailto:contact@marketdebunk.com?subject=Subscription: Automation Share Tracker (₹499/mo)" class="btn-pill btn-pill-black" style="font-size: 0.78rem; padding: 8px 18px;">
-              <span>Keep Updated</span>
-              <span>↗</span>
-            </a>
+            <button type="button" onclick="openRequisitionModal('automation-share-tracker')" class="btn-requisition">
+              <span>Activate Tracker</span>
+              <span class="btn-icon-bubble">↗</span>
+            </button>
           </div>
+        </div>
+
+      </div>
+    </section>
         </div>
 
       </div>
     </section>
 
     <!-- 10. COMMUNITY PITCH DESK ("MESSAGE CHANNEL / ASK DOUBTS" IN LIGHT MODE) -->
+    <!-- 10. WHISTLEBLOWER INTAKE & STATUTORY PITCH DESK -->
     <section id="creator" class="atlas-section">
       <div class="atlas-section-head">
-        <span class="atlas-badge-pill">INVESTIGATIVE INTAKE</span>
-        <h2 class="atlas-h2">Message Channel / Pitch a Myth</h2>
+        <span class="atlas-badge-pill">STATUTORY INTAKE DESK</span>
+        <h2 class="atlas-h2">Whistleblower Portal / Pitch an Investigation</h2>
         <p class="atlas-lead">
-          Witnessed a fishy finfluencer recommendation or confusing stock claim? Generate a forensic investigation ticket directly to the Market Debunk research desk.
+          Encountered a suspicious finfluencer pitch, pump scheme, or accounting anomaly? File a confidential investigation ticket directly with the Market Debunk research desk.
         </p>
       </div>
 
       <div class="atlas-pitch-card">
-        <!-- Form -->
+        <!-- Intake Form -->
         <div>
+          <div class="whistleblower-header-row">
+            <span id="whistleblower-ticket-id" class="whistleblower-ticket-badge">TICKET-REF: #MD-2026-7A4F</span>
+            <span class="whistleblower-confidential-pill">CONFIDENTIAL WHISTLEBLOWER PROTOCOL</span>
+          </div>
+
           <form onsubmit="handlePitchSubmit(event)">
             <div style="margin-bottom: 20px;">
-              <label style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+              <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
                 1. The Claim, Scheme, or Suspicious Reel *
               </label>
-              <textarea id="pitch-claim-input" class="atlas-input" rows="3" placeholder="e.g. Influencer claims investing in dividend stocks on ex-date guarantees 10% monthly risk-free return..." required></textarea>
+              <textarea id="pitch-claim-input" class="atlas-input" rows="3" placeholder="e.g. Influencer claims dividend capture strategy on ex-date guarantees 10% monthly risk-free return..." required></textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
               <div>
-                <label style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
                   2. Reel or Video URL (Optional)
                 </label>
                 <input id="pitch-url-input" type="url" class="atlas-input" placeholder="https://instagram.com/reel/...">
               </div>
               <div>
-                <label style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+                <label style="display: block; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
                   3. Your Email or Handle
                 </label>
                 <input id="pitch-contact-input" type="text" class="atlas-input" placeholder="@yourhandle or email">
@@ -798,7 +840,7 @@
 
             <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px;">
               <button type="submit" class="btn-pill btn-pill-black" style="font-size: 0.85rem; padding: 12px 24px;">
-                <span>Generate Forensic Ticket & Dispatch</span>
+                <span>Generate Forensic Ticket &amp; Dispatch</span>
                 <span>→</span>
               </button>
               <button type="button" onclick="copyPitchData()" class="btn-pill btn-pill-ghost" style="font-size: 0.85rem; padding: 12px 20px;">
@@ -811,29 +853,29 @@
           </form>
 
           <!-- ============================================================
-               COMMUNITY FUNDING DESK // RECEIVE FUNDING (AS PER USER SPEC)
+               INDEPENDENT FINANCIAL FORENSICS DEFENSE FUND
                ============================================================ -->
-          <div id="funding" class="funding-desk-card" style="margin-top: 28px; padding: 22px; background: linear-gradient(145deg, #F8FAFC 0%, #F1F5F9 100%); border: 1px solid rgba(0, 229, 153, 0.4); border-radius: 20px; box-shadow: 0 10px 28px rgba(0,0,0,0.04); position: relative; overflow: hidden;">
+          <div id="funding" class="funding-desk-card">
             
             <!-- Header Row -->
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-              <div class="atlas-badge-pill" style="margin-bottom: 0; background: rgba(0, 229, 153, 0.12); border-color: rgba(0, 229, 153, 0.4); color: var(--green-dark);">
-                <span class="sparkle">💛</span>
-                <span>COMMUNITY FUNDING DESK // 100% UNBIASED</span>
-              </div>
-              <span class="atlas-pulse-dot" style="width: 8px; height: 8px;" title="Funding Desk Active"></span>
+            <div class="defense-fund-header">
+              <span class="defense-fund-badge">
+                <span class="atlas-pulse-dot"></span>
+                <span>FINANCIAL FORENSICS DEFENSE FUND</span>
+              </span>
+              <span class="font-mono" style="font-size: 0.68rem; color: var(--ink-muted); font-weight: 700;">100% UNBIASED</span>
             </div>
 
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--ink-primary); letter-spacing: -0.02em; margin-bottom: 6px;">
+            <h3 style="font-size: 1.18rem; font-weight: 800; color: var(--ink-primary); letter-spacing: -0.02em; margin-bottom: 6px;">
               Fund Independent Market Forensics
             </h3>
-            <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.5; margin-bottom: 16px;">
-              We accept ₹0 from brokers, promoters, and guru courses. Your funding directly finances raw MCA-21 corporate registry pulls, DRHP prospectus forensic audits, and investigative reporting for retail investors.
+            <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.55; margin-bottom: 16px;">
+              We accept ₹0 from brokers, promoters, and guru courses. Your funding directly finances raw MCA-21 corporate registry document pulls, DRHP prospectus forensic audits, and investigative research for retail investors.
             </p>
 
             <!-- Tier Selection Chips -->
             <div style="margin-bottom: 14px;">
-              <label style="display: block; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+              <label style="display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
                 Select Contribution Tier
               </label>
               <div class="funding-tier-grid">
@@ -857,12 +899,14 @@
             </div>
 
             <!-- Custom Amount Display & Impact -->
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 12px; padding: 8px 12px;">
-              <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: var(--green-dark);">₹</span>
-              <input id="funding-custom-amt" type="number" value="199" min="10" step="10" class="atlas-input" style="border: none; padding: 0; font-family: var(--font-mono); font-size: 1.05rem; font-weight: 800; color: var(--ink-primary); width: 85px; outline: none; box-shadow: none;" oninput="updateCustomFundingAmt(this.value)">
-              <span id="funding-impact-text" style="font-size: 0.74rem; color: var(--ink-muted); border-left: 1px solid var(--border-light); padding-left: 10px; flex: 1;">
+            <div class="fund-allocation-ledger">
+              <div class="amt-input-wrap">
+                <span>₹</span>
+                <input id="funding-custom-amt" type="number" value="199" min="10" step="10" oninput="updateCustomFundingAmt(this.value)">
+              </div>
+              <div id="funding-impact-text" class="fund-impact-desc">
                 Funds 1 MCA-21 statutory company registry document pull
-              </span>
+              </div>
             </div>
 
             <!-- Payment Action Buttons -->
@@ -872,25 +916,25 @@
                   <span id="btn-funding-submit-lbl">Fund ₹199 via UPI / Card →</span>
                 </button>
                 <button type="button" onclick="toggleFundingQR()" class="btn-pill btn-pill-black" style="flex: 1; min-width: 130px; padding: 11px 12px; font-size: 0.78rem; justify-content: center;" title="Show UPI QR Code">
-                  <span>Scan UPI QR 📱</span>
+                  <span>Scan UPI QR Code</span>
                 </button>
               </div>
 
               <!-- One-Click UPI ID Copy Strip -->
-              <div style="display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px dashed rgba(0, 229, 153, 0.45); border-radius: 10px; padding: 7px 12px; font-size: 0.72rem;">
+              <div class="upi-copy-strip">
                 <div style="display: flex; align-items: center; gap: 6px;">
-                  <span style="font-family: var(--font-mono); color: var(--ink-muted); font-size: 0.65rem; font-weight: 700;">OFFICIAL UPI ID:</span>
-                  <span id="funding-upi-id" style="font-family: var(--font-mono); font-weight: 800; color: var(--ink-primary);">marketdebunk@upi</span>
+                  <span style="color: var(--ink-muted); font-weight: 700; font-size: 0.65rem;">OFFICIAL UPI ID:</span>
+                  <span id="funding-upi-id" style="font-weight: 800; color: var(--ink-primary);">marketdebunk@upi</span>
                 </div>
                 <button type="button" onclick="copyFundingUPI()" style="background: none; border: none; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--green-dark); cursor: pointer; padding: 2px 6px;">
-                  <span id="funding-copy-btn-text">Copy UPI 📋</span>
+                  <span id="funding-copy-btn-text">Copy UPI</span>
                 </button>
               </div>
             </div>
 
-            <!-- Expandable QR Code Drawer -->
-            <div id="funding-qr-drawer" style="display: none; margin-top: 14px; padding: 14px; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: 14px; text-align: center;">
-              <div style="font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; letter-spacing: 0.04em;">
+            <!-- Expandable Hardware QR Code Drawer -->
+            <div id="funding-qr-drawer" style="display: none;" class="qr-card-hardware">
+              <div class="font-mono" style="font-size: 0.7rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; letter-spacing: 0.04em;">
                 SCAN WITH ANY UPI APP (GPay / PhonePe / Paytm / BHIM)
               </div>
               <div style="display: flex; justify-content: center; margin-bottom: 8px;">
@@ -925,6 +969,13 @@
                 Verified Merchant: <strong>Market Debunk Media &amp; Research Desk</strong>
               </div>
             </div>
+
+            <!-- Success Alert Area -->
+            <div id="funding-success-alert" style="display: none; margin-top: 14px; padding: 14px; background: var(--green-light); border: 1px solid rgba(0,229,153,0.5); border-radius: 12px; color: var(--green-dark); font-size: 0.8rem; font-weight: 700; text-align: center;">
+            </div>
+
+          </div>
+        </div>
 
             <!-- Success Alert Area -->
             <div id="funding-success-alert" style="display: none; margin-top: 14px; padding: 14px; background: var(--green-light); border: 1px solid rgba(0,229,153,0.5); border-radius: 12px; color: var(--green-dark); font-size: 0.8rem; font-weight: 700; text-align: center;">

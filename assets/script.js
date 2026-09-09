@@ -895,23 +895,212 @@ function triggerFundingContribution(e) {
   }
 }
 
+// ==========================================================================
+// 9. REQUISITION MODAL ENGINE (BESPOKE NATIVE DIALOG)
+// ==========================================================================
+const PRODUCT_CATALOG = {
+  'retail-trap': {
+    title: "The Retail Trap: 50 Forensic Teardowns",
+    format: "NOTION WORKSPACE + 140P FIELD MANUAL",
+    price: "₹499",
+    billing: "One-Time Access // Lifetime Digital Updates",
+    specs: [
+      "50 audited corporate forensic case studies",
+      "Actual MCA-21 filings and SEBI DRHP teardowns",
+      "Reverse DCF & owner-earnings models",
+      "Interactive Notion database + printable PDF"
+    ],
+    emailSubject: "Requisition: The Retail Trap Field Manual (₹499)"
+  },
+  'valuation-engine': {
+    title: "Forensic Valuation Engine & Sheet Model",
+    format: ".XLSX / GOOGLE SHEETS / MACRO-ENABLED",
+    price: "₹1,299",
+    billing: "One-Time Access // Full Spreadsheet Source",
+    specs: [
+      "Automated Reverse DCF & Owner Earnings",
+      "Working capital red-flag warning algorithm",
+      "Beneish M-Score & Altman Z-Score stress tests",
+      "30-minute Loom walkthrough auditing live 10-K"
+    ],
+    emailSubject: "Requisition: Forensic Valuation Engine (₹1,299)"
+  },
+  'debunk-insider': {
+    title: "Debunk Insider: VIP Forensic Intelligence",
+    format: "TELEGRAM VIP DISPATCH + REAL-TIME RADAR",
+    price: "₹299/mo",
+    billing: "Recurring Membership // Cancel Anytime",
+    specs: [
+      "Pre-market pump & operator alerts",
+      "Weekly forensic briefings on statutory filings",
+      "Private subscriber inquiry desk",
+      "Unfiltered raw exchange filings database"
+    ],
+    emailSubject: "Subscription: Debunk Insider VIP (₹299/mo)"
+  },
+  'ai-agents-trading': {
+    title: "AI Agents for Trading: Execution Framework",
+    format: "AUTONOMOUS MULTI-AGENT PIPELINE / WEBHOOK",
+    price: "₹999/mo",
+    billing: "Institutional Subscription // API Access",
+    specs: [
+      "Algorithmic market scans & order book imbalances",
+      "Risk-managed position sizing & stop-loss rules",
+      "Zero emotional bias execution protocols",
+      "Telegram & Webhook real-time alert integration"
+    ],
+    emailSubject: "Subscription: AI Agents for Trading (₹999/mo)"
+  },
+  'agentic-ai-workflow': {
+    title: "Agentic AI Workflow: Statutory Audit Blueprint",
+    format: "PYTHON CODEBASE + LANGCHAIN GRAPH",
+    price: "₹499",
+    billing: "One-Time Access // Direct Source Code",
+    specs: [
+      "Ready-to-deploy LangChain / LlamaIndex pipeline",
+      "Automated 10-K & annual report parsing engine",
+      "Fine-tuned prompt chains for forensic accounting",
+      "Complete source code and architecture diagram"
+    ],
+    emailSubject: "Requisition: Agentic AI Workflow Blueprint (₹499)"
+  },
+  'automation-share-tracker': {
+    title: "Automation Share Tracker: 24/7 Cloud Sync",
+    format: "CONTINUOUS CLOUD SYNC / GOOGLE SHEETS",
+    price: "₹499/mo",
+    billing: "Monthly Cloud Service // Automated Sync",
+    specs: [
+      "Automated live stock holdings & portfolio sync",
+      "Instant alerts on promoter pledge & insider block deals",
+      "Google Sheets cloud relay & Telegram notifications",
+      "Continuous quarterly earnings & dividend calendar"
+    ],
+    emailSubject: "Subscription: Automation Share Tracker (₹499/mo)"
+  }
+};
+
+function openRequisitionModal(productId) {
+  const item = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['retail-trap'];
+  let overlay = document.getElementById('requisition-modal-overlay');
+  
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'requisition-modal-overlay';
+    overlay.className = 'requisition-modal-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  overlay.innerHTML = `
+    <div class="requisition-modal">
+      <div class="req-modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="atlas-pulse-dot"></span>
+          <span class="font-mono" style="font-size: 0.7rem; font-weight: 800; color: var(--green-dark); letter-spacing: 0.05em;">
+            INSTITUTIONAL REQUISITION // RESEARCH DESK
+          </span>
+        </div>
+        <button type="button" onclick="closeRequisitionModal()" class="req-modal-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <span class="product-format-badge" style="display: inline-block; margin-bottom: 8px;">${item.format}</span>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--ink-primary); letter-spacing: -0.02em; margin-bottom: 6px;">
+          ${item.title}
+        </h3>
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px;">
+          <span class="font-mono" style="font-size: 1.6rem; font-weight: 800; color: var(--ink-primary);">${item.price}</span>
+          <span style="font-size: 0.75rem; color: var(--ink-muted); font-family: var(--font-mono);">${item.billing}</span>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;">
+        <span class="font-mono" style="font-size: 0.68rem; font-weight: 800; color: var(--ink-muted); text-transform: uppercase; display: block; margin-bottom: 8px;">
+          Included In Deliverable:
+        </span>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--ink-secondary);">
+          ${item.specs.map(s => `<li>✓ ${s}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="mailto:contact@marketdebunk.com?subject=${encodeURIComponent(item.emailSubject)}" class="btn-pill btn-pill-black" style="justify-content: center; padding: 12px 18px; font-size: 0.85rem;">
+          <span>Dispatch Requisition via Email</span>
+          <span class="btn-icon-bubble">↗</span>
+        </a>
+        <button type="button" onclick="copyRequisitionSummary('${productId}')" class="btn-pill btn-pill-ghost" style="justify-content: center; padding: 10px 18px; font-size: 0.8rem;">
+          <span id="copy-req-summary-lbl">Copy Order Summary</span>
+        </button>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); text-align: center; margin-top: 14px;">
+        Direct dispatch within 1–2 hours. Invoices issued under Market Debunk Media Desk.
+      </div>
+    </div>
+  `;
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeRequisitionModal();
+  });
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRequisitionModal() {
+  const overlay = document.getElementById('requisition-modal-overlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function copyRequisitionSummary(productId) {
+  const item = PRODUCT_CATALOG[productId];
+  if (!item) return;
+  const summary = `MARKET DEBUNK REQUISITION\nItem: ${item.title}\nPrice: ${item.price} (${item.billing})\nFormat: ${item.format}\nContact: contact@marketdebunk.com`;
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(summary).then(() => {
+      const lbl = document.getElementById('copy-req-summary-lbl');
+      if (lbl) {
+        lbl.textContent = '✓ Summary Copied to Clipboard';
+        setTimeout(() => { lbl.textContent = 'Copy Order Summary'; }, 2200);
+      }
+    });
+  }
+}
+
+function initWhistleblowerTicket() {
+  const badge = document.getElementById('whistleblower-ticket-id');
+  if (badge) {
+    const randomHex = Math.random().toString(16).substring(2, 6).toUpperCase();
+    badge.textContent = `TICKET-REF: #MD-2026-${randomHex}`;
+  }
+}
+
 window.selectFundingTier = selectFundingTier;
 window.updateCustomFundingAmt = updateCustomFundingAmt;
 window.toggleFundingQR = toggleFundingQR;
 window.copyFundingUPI = copyFundingUPI;
 window.triggerFundingContribution = triggerFundingContribution;
+window.openRequisitionModal = openRequisitionModal;
+window.closeRequisitionModal = closeRequisitionModal;
+window.copyRequisitionSummary = copyRequisitionSummary;
 
 // ==========================================================================
 // INIT ON LOAD
 // ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
-  initHeroMythRotator();
-  initIsometricTilt();
-  initHeroVerdicts();
-  fetchLatestDriveUpload();
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeroMythRotator();
+    initIsometricTilt();
+    initHeroVerdicts();
+    fetchLatestDriveUpload();
+    initWhistleblowerTicket();
 
-  setInterval(() => {
-    if (!document.hidden) fetchLatestDriveUpload();
-  }, CONFIG.POLL_INTERVAL_MS);
-});
+    setInterval(() => {
+      if (!document.hidden) fetchLatestDriveUpload();
+    }, CONFIG.POLL_INTERVAL_MS);
+  });
+}
 
