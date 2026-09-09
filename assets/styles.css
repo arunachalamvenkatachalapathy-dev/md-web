@@ -1786,6 +1786,48 @@ body {
   box-shadow: 0 12px 32px rgba(0, 229, 153, 0.08);
 }
 
+/* Prominent / Featured Quant Suite Option */
+.atlas-product-card.prominent {
+  border: 2px solid var(--green-dark);
+  background: linear-gradient(180deg, #F0FDF8 0%, #FFFFFF 55%, #F4FBF7 100%);
+  box-shadow: 0 16px 40px rgba(0, 229, 153, 0.16), 0 0 0 1px rgba(0, 229, 153, 0.35);
+  position: relative;
+  overflow: visible;
+}
+
+@media (min-width: 1025px) {
+  .atlas-product-card.prominent {
+    transform: translateY(-6px);
+  }
+  .atlas-product-card.prominent:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 24px 50px rgba(0, 229, 153, 0.24), 0 0 0 2px rgba(0, 229, 153, 0.55);
+  }
+}
+
+.product-prominent-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink-primary);
+  color: #00E599;
+  font-family: var(--font-mono) !important;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(0, 229, 153, 0.35);
+  width: fit-content;
+}
+
+.product-prominent-ribbon .atlas-pulse-dot {
+  background: #00E599;
+  box-shadow: 0 0 8px #00E599;
+}
+
 .product-meta-row {
   display: flex;
   justify-content: space-between;
@@ -2006,6 +2048,87 @@ body {
   transform: translate(2px, -2px);
   background: var(--green);
   color: #000000;
+}
+
+/* Requisition button for prominent card */
+.btn-requisition.btn-requisition-prominent {
+  background: var(--ink-primary);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(0, 229, 153, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 229, 153, 0.25);
+}
+
+.btn-requisition.btn-requisition-prominent:hover {
+  background: #000000;
+  border-color: var(--green);
+  box-shadow: 0 8px 24px rgba(0, 229, 153, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-requisition.btn-requisition-prominent .btn-icon-bubble {
+  background: var(--green-dark);
+  color: #FFFFFF;
+}
+
+/* Multi-Agent Live Telemetry Box inside Prominent Card */
+.agent-telemetry-preview {
+  background: #0B1323 !important;
+  border: 1px solid rgba(0, 229, 153, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemetry-console-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.agent-telemetry-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agent-telemetry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono) !important;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 5px 8px;
+  border-radius: 6px;
+  gap: 8px;
+}
+
+.agent-role-tag {
+  color: var(--green);
+  font-weight: 800;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.agent-role-desc {
+  color: #CBD5E1;
+  font-size: 0.68rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agent-role-status {
+  color: #94A3B8;
+  font-size: 0.62rem;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
