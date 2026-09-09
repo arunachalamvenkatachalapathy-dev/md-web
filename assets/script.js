@@ -898,82 +898,78 @@ function triggerFundingContribution(e) {
 // ==========================================================================
 // 9. REQUISITION MODAL ENGINE (BESPOKE NATIVE DIALOG)
 // ==========================================================================
+// 10. PRODUCT REQUISITION & STORE MODAL ENGINE (CORPORATE MINIMAL)
+// ==========================================================================
 const PRODUCT_CATALOG = {
   'retail-trap': {
-    title: "The Retail Trap: 50 Forensic Teardowns",
-    format: "NOTION WORKSPACE + 140P FIELD MANUAL",
+    title: "The Retail Trap: Forensic Field Manual",
+    format: "RESEARCH DOSSIER // 140P + NOTION",
     price: "₹499",
-    billing: "One-Time Access // Lifetime Digital Updates",
+    billing: "Single Requisition // Lifetime Revisions",
     specs: [
-      "50 audited corporate forensic case studies",
-      "Actual MCA-21 filings and SEBI DRHP teardowns",
-      "Reverse DCF & owner-earnings models",
-      "Interactive Notion database + printable PDF"
+      "50 statutory forensic audits across REITs, IPOs, and operators",
+      "Reverse DCF and cash-flow reconciliation models",
+      "Interactive Notion database and printable PDF edition"
     ],
-    emailSubject: "Requisition: The Retail Trap Field Manual (₹499)"
+    emailSubject: "Requisition: The Retail Trap Dossier (₹499)"
   },
   'valuation-engine': {
-    title: "Forensic Valuation Engine & Sheet Model",
-    format: ".XLSX / GOOGLE SHEETS / MACRO-ENABLED",
+    title: "Forensic Valuation Engine",
+    format: "FINANCIAL MODEL // .XLSX",
     price: "₹1,299",
-    billing: "One-Time Access // Full Spreadsheet Source",
+    billing: "Spreadsheet License // Excel & Google Sheets",
     specs: [
-      "Automated Reverse DCF & Owner Earnings",
-      "Working capital red-flag warning algorithm",
-      "Beneish M-Score & Altman Z-Score stress tests",
-      "30-minute Loom walkthrough auditing live 10-K"
+      "Implied market growth and Reverse DCF model",
+      "Automated Beneish M-Score and Altman Z-Score stress tests",
+      "Operating cash flow divergence warning algorithm"
     ],
     emailSubject: "Requisition: Forensic Valuation Engine (₹1,299)"
   },
-  'debunk-insider': {
-    title: "Debunk Insider: VIP Forensic Intelligence",
-    format: "TELEGRAM VIP DISPATCH + REAL-TIME RADAR",
-    price: "₹299/mo",
-    billing: "Recurring Membership // Cancel Anytime",
-    specs: [
-      "Pre-market pump & operator alerts",
-      "Weekly forensic briefings on statutory filings",
-      "Private subscriber inquiry desk",
-      "Unfiltered raw exchange filings database"
-    ],
-    emailSubject: "Subscription: Debunk Insider VIP (₹299/mo)"
-  },
   'ai-agents-trading': {
-    title: "AI Agents for Trading: Execution Framework",
-    format: "AUTONOMOUS MULTI-AGENT PIPELINE / WEBHOOK",
+    title: "AI Agents for Trading: Execution Pipeline",
+    format: "EXECUTION PIPELINE // API",
     price: "₹999/mo",
-    billing: "Institutional Subscription // API Access",
+    billing: "Institutional License // Instant API Access",
     specs: [
-      "Algorithmic market scans & order book imbalances",
-      "Risk-managed position sizing & stop-loss rules",
-      "Zero emotional bias execution protocols",
-      "Telegram & Webhook real-time alert integration"
+      "Algorithmic L2 liquidity sweeps and order book imbalance scans",
+      "Mathematical position sizing and volatility stop-loss bounds",
+      "Sub-100ms Telegram, Discord, and Webhook event dispatch"
     ],
     emailSubject: "Subscription: AI Agents for Trading (₹999/mo)"
   },
+  'debunk-insider': {
+    title: "Debunk Insider: Market Surveillance Desk",
+    format: "SURVEILLANCE // TELEGRAM VIP",
+    price: "₹299/mo",
+    billing: "Monthly Dispatch // Cancel Anytime",
+    specs: [
+      "Pre-market surveillance bulletins before retail distribution cycles",
+      "Weekly deconstruction of complex MCA-21 and SEBI filings",
+      "Direct priority inquiry queue for suspicious securities"
+    ],
+    emailSubject: "Subscription: Debunk Insider VIP (₹299/mo)"
+  },
   'agentic-ai-workflow': {
     title: "Agentic AI Workflow: Statutory Audit Blueprint",
-    format: "PYTHON CODEBASE + LANGCHAIN GRAPH",
+    format: "PYTHON BLUEPRINT // GRAPH",
     price: "₹499",
-    billing: "One-Time Access // Direct Source Code",
+    billing: "Single Requisition // Complete Repository",
     specs: [
-      "Ready-to-deploy LangChain / LlamaIndex pipeline",
-      "Automated 10-K & annual report parsing engine",
-      "Fine-tuned prompt chains for forensic accounting",
-      "Complete source code and architecture diagram"
+      "Automated ingestion engine for annual reports and DRHP filings",
+      "LangGraph verification pipeline for financial statement audit",
+      "Production Python source code and test suite"
     ],
     emailSubject: "Requisition: Agentic AI Workflow Blueprint (₹499)"
   },
   'automation-share-tracker': {
-    title: "Automation Share Tracker: 24/7 Cloud Sync",
-    format: "CONTINUOUS CLOUD SYNC / GOOGLE SHEETS",
+    title: "Automation Share Tracker: Portfolio Cloud Engine",
+    format: "CLOUD RELAY // GOOGLE SHEETS",
     price: "₹499/mo",
-    billing: "Monthly Cloud Service // Automated Sync",
+    billing: "Cloud Service // Automated Sync",
     specs: [
-      "Automated live stock holdings & portfolio sync",
-      "Instant alerts on promoter pledge & insider block deals",
-      "Google Sheets cloud relay & Telegram notifications",
-      "Continuous quarterly earnings & dividend calendar"
+      "Automated portfolio valuation and dividend event sync",
+      "Real-time alerts on promoter share pledges and block sales",
+      "24/7 Google Sheets cloud relay with instant Telegram relays"
     ],
     emailSubject: "Subscription: Automation Share Tracker (₹499/mo)"
   }
