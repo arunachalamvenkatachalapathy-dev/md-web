@@ -911,7 +911,8 @@ const PRODUCT_CATALOG = {
       "Reverse DCF and cash-flow reconciliation models",
       "Interactive Notion database and printable PDF edition"
     ],
-    emailSubject: "Requisition: The Retail Trap Dossier (₹499)"
+    emailSubject: "Requisition: The Retail Trap Dossier (₹499)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to acquire The Retail Trap Forensic Field Manual (₹499).\n\nPlease send the payment details and deliverable access link.\n\nThank you!"
   },
   'valuation-engine': {
     title: "Forensic Valuation Engine",
@@ -923,7 +924,8 @@ const PRODUCT_CATALOG = {
       "Automated Beneish M-Score and Altman Z-Score stress tests",
       "Operating cash flow divergence warning algorithm"
     ],
-    emailSubject: "Requisition: Forensic Valuation Engine (₹1,299)"
+    emailSubject: "Requisition: Forensic Valuation Engine (₹1,299)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to acquire the Forensic Valuation Engine spreadsheet model (₹1,299).\n\nPlease send the payment details and spreadsheet download link.\n\nThank you!"
   },
   'ai-agents-trading': {
     title: "AI Agents for Trading: Execution Pipeline",
@@ -935,7 +937,8 @@ const PRODUCT_CATALOG = {
       "Mathematical position sizing and volatility stop-loss bounds",
       "Sub-100ms Telegram, Discord, and Webhook event dispatch"
     ],
-    emailSubject: "Subscription: AI Agents for Trading (₹999/mo)"
+    emailSubject: "Subscription: AI Agents for Trading (₹999/mo)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to subscribe to the AI Agents for Trading execution pipeline (₹999/mo).\n\nPlease send the payment details and API onboarding instructions.\n\nThank you!"
   },
   'debunk-insider': {
     title: "Debunk Insider: Market Surveillance Desk",
@@ -947,7 +950,8 @@ const PRODUCT_CATALOG = {
       "Weekly deconstruction of complex MCA-21 and SEBI filings",
       "Direct priority inquiry queue for suspicious securities"
     ],
-    emailSubject: "Subscription: Debunk Insider VIP (₹299/mo)"
+    emailSubject: "Subscription: Debunk Insider VIP (₹299/mo)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to join the Debunk Insider VIP Telegram Surveillance Desk (₹299/mo).\n\nPlease send the payment details and private channel invite.\n\nThank you!"
   },
   'agentic-ai-workflow': {
     title: "Agentic AI Workflow: Statutory Audit Blueprint",
@@ -959,7 +963,8 @@ const PRODUCT_CATALOG = {
       "LangGraph verification pipeline for financial statement audit",
       "Production Python source code and test suite"
     ],
-    emailSubject: "Requisition: Agentic AI Workflow Blueprint (₹499)"
+    emailSubject: "Requisition: Agentic AI Workflow Blueprint (₹499)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to acquire the Agentic AI Workflow Python Blueprint (₹499).\n\nPlease send the payment details and repository access link.\n\nThank you!"
   },
   'automation-share-tracker': {
     title: "Automation Share Tracker: Portfolio Cloud Engine",
@@ -971,7 +976,8 @@ const PRODUCT_CATALOG = {
       "Real-time alerts on promoter share pledges and block sales",
       "24/7 Google Sheets cloud relay with instant Telegram relays"
     ],
-    emailSubject: "Subscription: Automation Share Tracker (₹499/mo)"
+    emailSubject: "Subscription: Automation Share Tracker (₹499/mo)",
+    emailBody: "Hi Market Debunk Team,\n\nI would like to activate the Automation Share Tracker cloud service (₹499/mo).\n\nPlease send the payment details and setup instructions.\n\nThank you!"
   }
 };
 
@@ -1074,6 +1080,14 @@ function initWhistleblowerTicket() {
   }
 }
 
+function dispatchEmailRequisition(productId) {
+  const item = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['ai-agents-trading'];
+  const subject = encodeURIComponent(item.emailSubject);
+  const body = encodeURIComponent(item.emailBody || `Hi Market Debunk Team,\n\nI would like to requisition ${item.title} (${item.price}).\n\nPlease provide payment and delivery instructions.\n\nThank you!`);
+  const mailtoUrl = `mailto:marketdebunk@gmail.com?subject=${subject}&body=${body}`;
+  window.location.href = mailtoUrl;
+}
+
 window.selectFundingTier = selectFundingTier;
 window.updateCustomFundingAmt = updateCustomFundingAmt;
 window.toggleFundingQR = toggleFundingQR;
@@ -1082,6 +1096,7 @@ window.triggerFundingContribution = triggerFundingContribution;
 window.openRequisitionModal = openRequisitionModal;
 window.closeRequisitionModal = closeRequisitionModal;
 window.copyRequisitionSummary = copyRequisitionSummary;
+window.dispatchEmailRequisition = dispatchEmailRequisition;
 
 // ==========================================================================
 // INIT ON LOAD
