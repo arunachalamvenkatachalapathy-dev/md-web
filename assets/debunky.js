@@ -1,9 +1,20 @@
 /**
  * Debunky — AI Financial Forensics & Statutory Audit Engine
- * Powered by Market Debunk Desk
- * Institutional case ledger architecture with SEBI LODR regulatory citations
+ * Powered by Gemma 4-26B IT with Live Google Search Grounding
+ * Market Debunk (NELANDAR Inc.®)
  */
 
+const GEMMA_CONFIG = {
+  apiKey: (typeof localStorage !== 'undefined' && localStorage.getItem('gemma_api_key')) || atob("QVEuQWI4Uk42S3p4bU41cGdxNGRVMVB6c0VURlByQk5hUFI2UTJScDNITmp4b3RWVWtaaUE="),
+  model: "gemma-4-26b-a4b-it",
+  endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent"
+};
+
+let isWebSearchActive = true;
+let isVoiceRecording = false;
+let speechRecognitionInstance = null;
+
+// Static Forensic Knowledge Base (Instant offline fallback)
 const DEBUNKY_KB = [
   {
     keywords: ['dividend', 'reit', 'invit', 'safe yield', 'high yield', 'yield'],
@@ -69,27 +80,24 @@ const DEBUNKY_KB = [
     rule: "A company with booming accounting profit but negative Free Cash Flow is burning cash."
   },
   {
-    keywords: ['brokerage', 'zero brokerage', 'pfof', 'free trading'],
-    title: "0% Brokerage: Order Routing Slippage & Internalization",
-    verdictLabel: "EXECUTION SLIPPAGE COST",
+    keywords: ['brokerage', 'zero brokerage', 'pfof', 'free trading', 'groww', 'zerodha', 'angel'],
+    title: "Demat & Broker Comparisons: The Hidden Slippage & Charges Reality",
+    verdictLabel: "EXECUTION & FEE AUDIT",
     verdictType: "hazard",
-    answer: "When a trading platform advertises zero commission, retail market orders are often routed to high-frequency trading (HFT) internalizers or executed at wider bid-ask spreads. The retail trader loses 10x to 20x more in adverse price execution slippage than they saved in flat brokerage charges.",
+    answer: "Discount brokers advertising '0% brokerage' often capture revenue through payment for order flow, auto-square-off charges (₹50+GST per order), high depository participant (DP) debits, and execution spread slippage. In fast-moving markets, a 0.1% slippage costs far more than a flat ₹20 brokerage fee.",
     citation: "Exchange Order Routing and Best Execution Audit Disclosures",
     rule: "Execution fill quality and order latency matter far more than ₹0 brokerage headlines."
   }
 ];
 
-function getDebunkyResponse(userText) {
+function getDebunkyFallback(userText) {
   const query = userText.toLowerCase().trim();
-
-  // Match keyword in database
   for (const item of DEBUNKY_KB) {
     if (item.keywords.some(k => query.includes(k))) {
       return item;
     }
   }
 
-  // Fallback forensic framework
   return {
     title: `Forensic Inquiry: "${userText.slice(0, 42)}"`,
     verdictLabel: "STATUTORY FORENSIC FILTER",
@@ -104,7 +112,136 @@ function getDebunkyResponse(userText) {
   };
 }
 
-const MAX_FREE_QUERIES = 4;
+/**
+ * Call Gemma 4-26B model via Google Generative Language API
+ */
+async function callGemmaForensics(queryText, useWebSearch) {
+  const url = `${GEMMA_CONFIG.endpoint}?key=${GEMMA_CONFIG.apiKey}`;
+
+  const systemInstruction = 
+    `You are Debunky, the autonomous financial forensics and statutory audit AI agent for Market Debunk (NELANDAR Inc.®), founded by Arunachalam Venkatachalapathy.\n` +
+    `Your mission: Audit Indian share market tips, viral finfluencer reels, stock valuations, trading psychology (FOMO, revenge trading), candlestick patterns (Hammer, Doji), and corporate disclosures against SEBI regulations (LODR, SAST, PIT), MCA-21 filings, and audited Free Cash Flow ledgers.\n` +
+    `Tone: Uncompromising, sharp, data-driven, objective. Content is strictly for educational & informational purposes (NOT SEBI-registered financial advice).\n\n` +
+    `Format your response using these exact section headers:\n` +
+    `### VERDICT: [Sharp Verdict Title in UPPERCASE]\n` +
+    `**Verdict Category:** [HAZARD or DILUTION or VERIFIED]\n` +
+    `**Statutory Citation:** [Relevant SEBI LODR Regulation, Section of Companies Act 2013, or Exchange standard]\n\n` +
+    `**Forensic Investigation:**\n[2-3 concise paragraphs analyzing the claim with data, cash flow reality, or trading psychology. Use **bolding** for critical metrics.]\n\n` +
+    `**Forensic Directive:**\n[One memorable, actionable takeaway rule for retail investors.]`;
+
+  const payload = {
+    contents: [
+      {
+        parts: [
+          {
+            text: `${systemInstruction}\n\nUSER QUERY TO AUDIT: ${queryText}`
+          }
+        ]
+      }
+    ]
+  };
+
+  if (useWebSearch) {
+    payload.tools = [{ googleSearch: {} }];
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(`Gemma API HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  const candidate = data.candidates && data.candidates[0];
+  if (!candidate || !candidate.content) {
+    throw new Error("No candidate returned from Gemma");
+  }
+
+  // Filter out internal reasoning parts
+  let mainText = "";
+  if (candidate.content.parts) {
+    const textParts = candidate.content.parts.filter(p => !p.thought && p.text);
+    mainText = textParts.map(p => p.text).join("\n\n").trim();
+    if (!mainText) {
+      mainText = candidate.content.parts.map(p => p.text || '').join("\n\n").trim();
+    }
+  }
+
+  // Extract grounding sources
+  let sources = [];
+  if (candidate.groundingMetadata && candidate.groundingMetadata.groundingChunks) {
+    sources = candidate.groundingMetadata.groundingChunks
+      .map(chunk => chunk.web)
+      .filter(Boolean)
+      .filter((s, idx, arr) => arr.findIndex(x => x.uri === s.uri) === idx)
+      .slice(0, 5);
+  }
+
+  return parseGemmaResponse(mainText, sources, useWebSearch);
+}
+
+function parseGemmaResponse(text, sources, isWebSearch) {
+  let title = "Forensic Investigation Report";
+  let verdictLabel = isWebSearch ? "LIVE AUDIT // WEB GROUNDED" : "GEMMA 4-26B AUDIT";
+  let verdictType = "hazard";
+  let citation = "SEBI (LODR) Regulations & BSE/NSE Disclosures";
+  let rule = "Cross-reference all claims against audited balance sheets before taking risk.";
+  let answerBody = text;
+
+  // Extract title/verdict
+  const verdictMatch = text.match(/###\s*VERDICT:\s*(.+)/i);
+  if (verdictMatch) {
+    verdictLabel = verdictMatch[1].trim();
+  }
+
+  const catMatch = text.match(/\*\*Verdict Category:\*\*\s*(.+)/i);
+  if (catMatch) {
+    const cat = catMatch[1].toLowerCase();
+    if (cat.includes('dilution')) verdictType = 'dilution';
+    else if (cat.includes('verified')) verdictType = 'verified';
+    else verdictType = 'hazard';
+  }
+
+  const citMatch = text.match(/\*\*Statutory Citation:\*\*\s*(.+)/i);
+  if (citMatch) {
+    citation = citMatch[1].trim();
+  }
+
+  const ruleMatch = text.match(/\*\*Forensic Directive:\*\*\s*([\s\S]+?)$/i);
+  if (ruleMatch) {
+    rule = ruleMatch[1].trim();
+  }
+
+  const findingMatch = text.match(/\*\*Forensic Investigation:\*\*([\s\S]+?)(?=\*\*Forensic Directive:|$)/i);
+  if (findingMatch) {
+    answerBody = findingMatch[1].trim();
+  } else {
+    // Clean up raw markdown if headers aren't strict
+    answerBody = text
+      .replace(/###\s*VERDICT:.*?(\n|$)/gi, '')
+      .replace(/\*\*Verdict Category:\*\*.*?(\n|$)/gi, '')
+      .replace(/\*\*Statutory Citation:\*\*.*?(\n|$)/gi, '')
+      .replace(/\*\*Forensic Directive:\*\*.*?(\n|$)/gi, '')
+      .trim();
+  }
+
+  return {
+    title: title,
+    verdictLabel: verdictLabel,
+    verdictType: verdictType,
+    answer: answerBody || text,
+    citation: citation,
+    rule: rule,
+    sources: sources,
+    isWebSearch: isWebSearch
+  };
+}
+
+let totalAuditsCount = 0;
 
 function initDebunkyChat() {
   const chatWindow = document.getElementById('debunky-chat-stream');
@@ -112,87 +249,7 @@ function initDebunkyChat() {
   const formEl = document.getElementById('debunky-form');
   if (!chatWindow || !formEl) return;
 
-  // Retrieve existing query count from sessionStorage
-  let queryCount = parseInt(sessionStorage.getItem('debunky_query_count') || '0', 10);
-
-  function checkAndApplyLockState() {
-    if (queryCount >= MAX_FREE_QUERIES) {
-      if (inputEl) {
-        inputEl.placeholder = "Session audit quota complete (4/4). Review research toolkits below.";
-        inputEl.disabled = true;
-        inputEl.style.opacity = "0.75";
-        inputEl.style.cursor = "not-allowed";
-        inputEl.style.borderColor = "var(--border-light)";
-      }
-      const submitBtn = formEl.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.className = "btn-pill btn-pill-black";
-        submitBtn.style.background = "var(--ink-primary)";
-        submitBtn.style.color = "#FFFFFF";
-        submitBtn.innerHTML = `<span>Review Toolkits</span> <span>→</span>`;
-        submitBtn.onclick = function(e) {
-          e.preventDefault();
-          const productsSec = document.getElementById('products');
-          if (productsSec) productsSec.scrollIntoView({ behavior: 'smooth' });
-        };
-      }
-    }
-  }
-
-  function appendQuotaNotice() {
-    if (document.getElementById('debunky-quota-alert-box')) return;
-
-    const noticeDiv = document.createElement('div');
-    noticeDiv.id = 'debunky-quota-alert-box';
-    noticeDiv.className = 'debunky-quota-card';
-    noticeDiv.innerHTML = `
-      <div class="quota-header-row">
-        <div class="quota-status-pill">
-          <span class="atlas-pulse-dot" style="background: var(--ink-muted);"></span>
-          <span>SESSION AUDIT QUOTA CONSUMED // STATUTORY ARCHIVE</span>
-        </div>
-        <span class="quota-count-tag">4 OF 4 AUDITS LOGGED</span>
-      </div>
-
-      <h3 class="quota-title">
-        Complimentary Forensic Session Complete
-      </h3>
-
-      <p class="quota-desc">
-        To preserve live exchange data-feed latency and independent research bandwidth, complimentary query access is capped at 4 investigations per session. For continuous quantitative models, multi-agent trading scanners, and spreadsheet valuation suites, inspect our research tools below:
-      </p>
-
-      <div class="quota-options-grid">
-        <a href="#products" class="quota-option-card" onclick="if(window.openRequisitionModal) openRequisitionModal('ai-agents-trading')">
-          <div>
-            <span class="product-format-badge" style="display:inline-block; margin-bottom: 6px;">AUTONOMOUS AI / PIPELINE</span>
-            <div class="quota-option-title">AI Agents for Trading</div>
-            <div style="font-size: 0.74rem; color: var(--ink-muted); margin-top: 4px;">Liquidity sweeps & multi-agent risk protocols</div>
-          </div>
-          <div class="quota-option-price">₹999/mo ↗</div>
-        </a>
-
-        <a href="#products" class="quota-option-card" onclick="if(window.openRequisitionModal) openRequisitionModal('valuation-engine')">
-          <div>
-            <span class="product-format-badge" style="display:inline-block; margin-bottom: 6px;">SPREADSHEET / REVERSE DCF</span>
-            <div class="quota-option-title">Forensic Valuation Engine</div>
-            <div style="font-size: 0.74rem; color: var(--ink-muted); margin-top: 4px;">Reverse DCF, Beneish M-Score & working capital model</div>
-          </div>
-          <div class="quota-option-price">₹1,299 (Lifetime) ↗</div>
-        </a>
-      </div>
-
-      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 12px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);">
-        <span>100% Sponsor-Free Financial Forensics</span>
-        <a href="#products" style="color: var(--green-dark); font-weight: 700; text-decoration: none;">View All 6 Research Deliverables →</a>
-      </div>
-    `;
-
-    chatWindow.appendChild(noticeDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-
-  function appendMessage(role, contentObj, currentCount) {
+  function appendMessage(role, contentObj) {
     if (role === 'user') {
       const userDiv = document.createElement('div');
       userDiv.className = 'debunky-user-query';
@@ -210,19 +267,37 @@ function initDebunkyChat() {
     const caseDiv = document.createElement('div');
     caseDiv.className = 'debunky-case-record';
 
-    const verdictClass = contentObj.verdictType === 'hazard' ? 'case-verdict-hazard' : 'case-verdict-dilution';
-    const isFinal = currentCount >= MAX_FREE_QUERIES;
+    let verdictClass = 'case-verdict-hazard';
+    if (contentObj.verdictType === 'dilution') verdictClass = 'case-verdict-dilution';
+    if (contentObj.verdictType === 'verified') verdictClass = 'case-verdict-hazard';
+
+    let sourcesHtml = '';
+    if (contentObj.sources && contentObj.sources.length > 0) {
+      sourcesHtml = `
+        <div class="case-sources-row">
+          <span class="case-sources-label">VERIFIED LIVE WEB SOURCES:</span>
+          <div class="case-sources-list">
+            ${contentObj.sources.map(s => `
+              <a href="${s.uri}" target="_blank" rel="noopener noreferrer" class="source-link-pill">
+                <span>🌐 ${escapeHtml(s.title || 'Source')}</span>
+                <span>↗</span>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
 
     caseDiv.innerHTML = `
       <div class="case-meta-header">
         <div class="case-meta-left">
           <span class="atlas-pulse-dot"></span>
           <span class="case-ref-tag">CASE-REF #MD-2026-${caseHash}</span>
-          <span>// SEBI LODR DATABASE</span>
+          <span>// ${contentObj.isWebSearch ? 'GEMMA 4-26B + LIVE WEB' : 'GEMMA 4-26B FORENSIC DESK'}</span>
         </div>
         <div>
-          <span class="debunky-audit-counter-badge ${isFinal ? 'final' : ''}">
-            AUDIT ${currentCount || 1} OF ${MAX_FREE_QUERIES} ${isFinal ? '(QUOTA COMPLETE)' : ''}
+          <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">
+            AUDIT #${totalAuditsCount} // UNLIMITED ACCESS
           </span>
         </div>
       </div>
@@ -241,13 +316,15 @@ function initDebunkyChat() {
 
         <div class="case-citation-row">
           <span class="case-citation-label">STATUTORY CITATION:</span>
-          <span>${contentObj.citation}</span>
+          <span>${contentObj.citation || 'SEBI LODR Disclosures'}</span>
         </div>
 
         <div class="case-rule-row">
           <span class="case-rule-label">FORENSIC DIRECTIVE:</span>
-          <span>${contentObj.rule}</span>
+          <span>${contentObj.rule || 'Verify on BSE/NSE before committing capital.'}</span>
         </div>
+
+        ${sourcesHtml}
       </div>
     `;
 
@@ -260,7 +337,10 @@ function initDebunkyChat() {
     return text
       .split('\n\n')
       .map(p => {
-        let formatted = p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        let formatted = p
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/^\*\s*(.*)/gm, '• $1')
+          .replace(/^###\s*(.*)/gm, '<strong style="color: var(--ink-primary); font-size: 0.92rem; display: block; margin-top: 8px;">$1</strong>');
         return `<p style="margin-bottom: 8px;">${formatted}</p>`;
       })
       .join('');
@@ -272,22 +352,11 @@ function initDebunkyChat() {
     return div.innerHTML;
   }
 
-  function handleQuery(text) {
+  async function handleQuery(text) {
     if (!text || !text.trim()) return;
     const cleanText = text.trim();
 
-    if (queryCount >= MAX_FREE_QUERIES) {
-      chatWindow.classList.add('debunky-shake-alert');
-      setTimeout(() => chatWindow.classList.remove('debunky-shake-alert'), 400);
-      appendQuotaNotice();
-      const alertEl = document.getElementById('debunky-quota-alert-box');
-      if (alertEl) alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    queryCount++;
-    sessionStorage.setItem('debunky_query_count', queryCount);
-
+    totalAuditsCount++;
     appendMessage('user', { text: cleanText });
     if (inputEl) inputEl.value = '';
 
@@ -296,7 +365,10 @@ function initDebunkyChat() {
     typingDiv.className = 'debunky-typing-indicator';
     typingDiv.id = 'debunky-typing-temp';
     typingDiv.innerHTML = `
-      <span class="font-mono" style="font-size: 0.72rem; color: var(--ink-muted); margin-right: 6px; font-weight: 700;">INTERROGATING STATUTORY FILINGS...</span>
+      <span class="atlas-pulse-dot"></span>
+      <span class="font-mono" style="font-size: 0.72rem; color: var(--ink-secondary); margin-right: 6px; font-weight: 700;">
+        ${isWebSearchActive ? 'GEMMA 4-26B: GROUNDING VIA LIVE WEB SEARCH...' : 'GEMMA 4-26B: INTERROGATING STATUTORY LEDGER...'}
+      </span>
       <span class="debunky-typing-dot"></span>
       <span class="debunky-typing-dot"></span>
       <span class="debunky-typing-dot"></span>
@@ -304,35 +376,26 @@ function initDebunkyChat() {
     chatWindow.appendChild(typingDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 
-    setTimeout(() => {
+    try {
+      // Execute live Gemma 4-26B call with web search grounding
+      const response = await callGemmaForensics(cleanText, isWebSearchActive);
       typingDiv.remove();
-      const response = getDebunkyResponse(cleanText);
-      appendMessage('bot', response, queryCount);
-
-      if (queryCount >= MAX_FREE_QUERIES) {
-        checkAndApplyLockState();
-        setTimeout(() => {
-          appendQuotaNotice();
-        }, 500);
-      }
-    }, 450);
+      appendMessage('bot', response);
+    } catch (err) {
+      console.warn("Gemma API fallback activated:", err);
+      typingDiv.remove();
+      // Graceful offline/local knowledge fallback
+      const fallback = getDebunkyFallback(cleanText);
+      appendMessage('bot', fallback);
+    }
   }
 
   formEl.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (queryCount >= MAX_FREE_QUERIES) {
-      const productsSec = document.getElementById('products');
-      if (productsSec) productsSec.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
     if (inputEl) handleQuery(inputEl.value);
   });
 
   window.askDebunkyPrompt = function(promptText) {
-    if (queryCount >= MAX_FREE_QUERIES) {
-      handleQuery(promptText);
-      return;
-    }
     handleQuery(promptText);
   };
 
@@ -343,10 +406,10 @@ function initDebunkyChat() {
           <div class="case-meta-left">
             <span class="atlas-pulse-dot"></span>
             <span class="case-ref-tag">SYSTEM // FORENSIC TERMINAL READY</span>
-            <span>// SEBI LODR AUDIT ENGINE</span>
+            <span>// GEMMA 4-26B + LIVE WEB GROUNDING</span>
           </div>
           <div>
-            <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">AUDITS REMAINING: ${Math.max(0, MAX_FREE_QUERIES - queryCount)}/${MAX_FREE_QUERIES}</span>
+            <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">AUDITS: UNLIMITED</span>
           </div>
         </div>
         <div class="case-body">
@@ -357,26 +420,137 @@ function initDebunkyChat() {
             </span>
           </div>
           <p class="case-finding-text">
-            Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly against statutory SEBI exchange filings and verified cash-flow statements.
+            Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly with Gemma 4-26B AI and live web grounding.
           </p>
           <div class="case-citation-row">
             <span class="case-citation-label">AUDIT PROTOCOL:</span>
-            <span>Queries interrogated against BSE/NSE statutory filings, MCA-21 disclosures &amp; cash flow ledgers.</span>
+            <span>Live Web Search Grounding + BSE/NSE statutory filings &amp; cash flow ledgers.</span>
           </div>
         </div>
       </div>
     `;
-    if (queryCount >= MAX_FREE_QUERIES) {
-      appendQuotaNotice();
-    }
   };
-
-  checkAndApplyLockState();
-  if (queryCount >= MAX_FREE_QUERIES) {
-    appendQuotaNotice();
-  }
 }
+
+/**
+ * Web Search Toggle Controller
+ */
+window.toggleWebSearch = function() {
+  isWebSearchActive = !isWebSearchActive;
+  const btn = document.getElementById('btn-web-search-toggle');
+  const txt = document.getElementById('web-search-text');
+  if (btn && txt) {
+    if (isWebSearchActive) {
+      btn.classList.add('active');
+      txt.textContent = 'Web Search: ON';
+    } else {
+      btn.classList.remove('active');
+      txt.textContent = 'Web Search: OFF';
+    }
+  }
+};
+
+/**
+ * Voice Typing (SpeechRecognition) Controller
+ */
+window.toggleVoiceTyping = function() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const micBtn = document.getElementById('btn-voice-typing');
+  const micLabel = document.getElementById('voice-typing-label');
+  const inputEl = document.getElementById('debunky-query-input');
+
+  if (!SpeechRecognition) {
+    alert("Voice typing is not supported in this browser. Please use Chrome, Edge, or Safari.");
+    return;
+  }
+
+  if (isVoiceRecording && speechRecognitionInstance) {
+    speechRecognitionInstance.stop();
+    return;
+  }
+
+  try {
+    speechRecognitionInstance = new SpeechRecognition();
+    speechRecognitionInstance.lang = 'en-IN';
+    speechRecognitionInstance.continuous = false;
+    speechRecognitionInstance.interimResults = false;
+
+    speechRecognitionInstance.onstart = function() {
+      isVoiceRecording = true;
+      if (micBtn) micBtn.classList.add('recording');
+      if (micLabel) micLabel.textContent = 'Listening...';
+      if (inputEl) inputEl.placeholder = 'Listening... Speak your stock tip or query now...';
+    };
+
+    speechRecognitionInstance.onresult = function(event) {
+      const transcript = event.results[0][0].transcript;
+      if (inputEl) {
+        inputEl.value = transcript;
+        inputEl.focus();
+      }
+    };
+
+    speechRecognitionInstance.onerror = function(event) {
+      console.warn("Speech recognition error:", event.error);
+      resetVoiceUI();
+    };
+
+    speechRecognitionInstance.onend = function() {
+      resetVoiceUI();
+    };
+
+    speechRecognitionInstance.start();
+  } catch (err) {
+    console.error("Voice typing start failed:", err);
+    resetVoiceUI();
+  }
+
+  function resetVoiceUI() {
+    isVoiceRecording = false;
+    if (micBtn) micBtn.classList.remove('recording');
+    if (micLabel) micLabel.textContent = 'Voice';
+    if (inputEl) inputEl.placeholder = 'Ask anything or audit any stock tip with Gemma 4-26B + Live Web Search...';
+  }
+};
+
+/**
+ * Rapper Floating AI Agent Click Navigation
+ */
+window.scrollToDebunkyTerminal = function(e) {
+  if (e) e.preventDefault();
+  const terminal = document.getElementById('debunky');
+  const inputEl = document.getElementById('debunky-query-input');
+
+  if (terminal) {
+    terminal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  setTimeout(() => {
+    if (inputEl) {
+      inputEl.focus();
+      inputEl.classList.add('glow-pulse');
+      setTimeout(() => inputEl.classList.remove('glow-pulse'), 1200);
+    }
+  }, 400);
+
+  // Play subtle chime if Web Audio API available
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.25);
+  } catch (err) {}
+};
 
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initDebunkyChat);
 }
+
