@@ -221,36 +221,73 @@ function triggerRupeeBurst(e) {
   }
 }
 
+// ==========================================================================
+// ROBUST PERSISTENT AUDIO CONTEXT FOR CASH REGISTER CHIME (PLAYS 100% OF TIME)
+// ==========================================================================
+let sharedAudioCtx = null;
+
+function getAudioContext() {
+  try {
+    if (!sharedAudioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        sharedAudioCtx = new AudioContextClass();
+      }
+    }
+    if (sharedAudioCtx && sharedAudioCtx.state === 'suspended') {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+  } catch (e) {
+    console.warn('[Audio] Context init notice:', e);
+  }
+  return sharedAudioCtx;
+}
+
 function playCashChime() {
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    const ctx = new AudioContext();
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    if (ctx.state === 'suspended') {
+      ctx.resume().then(() => playChimeFrequencies(ctx)).catch(() => {});
+    } else {
+      playChimeFrequencies(ctx);
+    }
+  } catch (err) {
+    console.warn('[Audio] Chime playback notice:', err);
+  }
+}
+
+function playChimeFrequencies(ctx) {
+  try {
     const now = ctx.currentTime;
 
+    // First tone: Metallic coin impact (B5 -> E6)
     const osc1 = ctx.createOscillator();
     const gain1 = ctx.createGain();
     osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(880, now);
-    osc1.frequency.exponentialRampToValueAtTime(1320, now + 0.08);
-    gain1.gain.setValueAtTime(0.15, now);
-    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+    osc1.frequency.setValueAtTime(987.77, now);
+    osc1.frequency.exponentialRampToValueAtTime(1318.51, now + 0.08);
+    gain1.gain.setValueAtTime(0.18, now);
+    gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
     osc1.connect(gain1);
     gain1.connect(ctx.destination);
     osc1.start(now);
-    osc1.stop(now + 0.3);
+    osc1.stop(now + 0.33);
 
+    // Second tone: Sparkling high register cash chime (B6 -> E7)
     const osc2 = ctx.createOscillator();
     const gain2 = ctx.createGain();
     osc2.type = 'triangle';
-    osc2.frequency.setValueAtTime(1760, now + 0.06);
-    gain2.gain.setValueAtTime(0.1, now + 0.06);
-    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    osc2.frequency.setValueAtTime(1975.53, now + 0.05);
+    osc2.frequency.exponentialRampToValueAtTime(2637.02, now + 0.12);
+    gain2.gain.setValueAtTime(0.12, now + 0.05);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.38);
     osc2.connect(gain2);
     gain2.connect(ctx.destination);
-    osc2.start(now + 0.06);
-    osc2.stop(now + 0.35);
-  } catch (err) {}
+    osc2.start(now + 0.05);
+    osc2.stop(now + 0.39);
+  } catch (e) {}
 }
 
 // ==========================================================================
