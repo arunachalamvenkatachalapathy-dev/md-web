@@ -12,7 +12,7 @@ const CONFIG = {
   DRIVE_API_KEY: '[[DRIVE_API_KEY]]',
   DRIVE_FOLDER_ID: '1n600zacanICWFEQ1oX5XYOUyJLMSyvjc',
   YOUTUBE_URL: 'https://www.youtube.com/@MarketDebunk',
-  INSTAGRAM_URL: 'https://www.instagram.com/marketdebunk',
+  INSTAGRAM_URL: 'https://www.instagram.com/market_debunk/',
   TELEGRAM_URL: 'https://t.me/marketdebunk',
   LINKEDIN_URL: 'https://www.linkedin.com/company/marketdebunk',
   EMAIL: 'marketdebunk@gmail.com',
