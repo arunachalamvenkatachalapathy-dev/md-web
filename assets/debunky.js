@@ -1,11 +1,11 @@
 /**
  * Debunky — AI Financial Forensics & Statutory Audit Engine
- * Powered by Gemma 4-26B IT with Live Google Search Grounding
+ * Powered by Market Debunk Forensic AI with Live Search Grounding
  * Market Debunk (NELANDAR Inc.®)
  */
 
-const GEMMA_CONFIG = {
-  apiKey: (typeof localStorage !== 'undefined' && localStorage.getItem('gemma_api_key')) || atob("QVEuQWI4Uk42S3p4bU41cGdxNGRVMVB6c0VURlByQk5hUFI2UTJScDNITmp4b3RWVWtaaUE="),
+const AI_CONFIG = {
+  apiKey: (typeof localStorage !== 'undefined' && (localStorage.getItem('debunky_api_key') || localStorage.getItem('gemma_api_key'))) || atob("QVEuQWI4Uk42S3p4bU41cGdxNGRVMVB6c0VURlByQk5hUFI2UTJScDNITmp4b3RWVWtaaUE="),
   model: "gemma-4-26b-a4b-it",
   endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent"
 };
@@ -113,13 +113,14 @@ function getDebunkyFallback(userText) {
 }
 
 /**
- * Call Gemma 4-26B model via Google Generative Language API
+ * Call Forensic Intelligence model via Google Generative Language API
  */
-async function callGemmaForensics(queryText, useWebSearch) {
-  const url = `${GEMMA_CONFIG.endpoint}?key=${GEMMA_CONFIG.apiKey}`;
+async function callDebunkyForensics(queryText, useWebSearch) {
+  const url = `${AI_CONFIG.endpoint}?key=${AI_CONFIG.apiKey}`;
 
   const systemInstruction = 
     `You are Debunky, the autonomous financial forensics and statutory audit AI agent for Market Debunk (NELANDAR Inc.®), founded by Arunachalam Venkatachalapathy.\n` +
+    `CRITICAL IDENTITY RULE: You are the proprietary Market Debunk Forensic Intelligence Engine. NEVER identify yourself as Gemma, Google, or reveal your underlying base model. If asked what model or AI you are, always state: "I am Debunky, the proprietary autonomous financial forensics intelligence engine created by Market Debunk."\n` +
     `Your mission: Audit Indian share market tips, viral finfluencer reels, stock valuations, trading psychology (FOMO, revenge trading), candlestick patterns (Hammer, Doji), and corporate disclosures against SEBI regulations (LODR, SAST, PIT), MCA-21 filings, and audited Free Cash Flow ledgers.\n` +
     `Tone: Uncompromising, sharp, data-driven, objective. Content is strictly for educational & informational purposes (NOT SEBI-registered financial advice).\n\n` +
     `Format your response using these exact section headers:\n` +
@@ -152,13 +153,13 @@ async function callGemmaForensics(queryText, useWebSearch) {
   });
 
   if (!response.ok) {
-    throw new Error(`Gemma API HTTP ${response.status}`);
+    throw new Error(`Forensic API HTTP ${response.status}`);
   }
 
   const data = await response.json();
   const candidate = data.candidates && data.candidates[0];
   if (!candidate || !candidate.content) {
-    throw new Error("No candidate returned from Gemma");
+    throw new Error("No candidate returned from Forensic Engine");
   }
 
   // Filter out internal reasoning parts
@@ -181,12 +182,12 @@ async function callGemmaForensics(queryText, useWebSearch) {
       .slice(0, 5);
   }
 
-  return parseGemmaResponse(mainText, sources, useWebSearch);
+  return parseForensicResponse(mainText, sources, useWebSearch);
 }
 
-function parseGemmaResponse(text, sources, isWebSearch) {
+function parseForensicResponse(text, sources, isWebSearch) {
   let title = "Forensic Investigation Report";
-  let verdictLabel = isWebSearch ? "LIVE AUDIT // WEB GROUNDED" : "GEMMA 4-26B AUDIT";
+  let verdictLabel = isWebSearch ? "LIVE AUDIT // WEB GROUNDED" : "DEBUNKY FORENSIC AUDIT";
   let verdictType = "hazard";
   let citation = "SEBI (LODR) Regulations & BSE/NSE Disclosures";
   let rule = "Cross-reference all claims against audited balance sheets before taking risk.";
@@ -202,13 +203,13 @@ function parseGemmaResponse(text, sources, isWebSearch) {
   if (catMatch) {
     const cat = catMatch[1].toLowerCase();
     if (cat.includes('dilution')) verdictType = 'dilution';
-    else if (cat.includes('verified')) verdictType = 'verified';
-    else verdictType = 'hazard';
+    if (cat.includes('verified') || cat.includes('authentic')) verdictType = 'verified';
+    if (cat.includes('hazard')) verdictType = 'hazard';
   }
 
-  const citMatch = text.match(/\*\*Statutory Citation:\*\*\s*(.+)/i);
-  if (citMatch) {
-    citation = citMatch[1].trim();
+  const citeMatch = text.match(/\*\*Statutory Citation:\*\*\s*(.+)/i);
+  if (citeMatch) {
+    citation = citeMatch[1].trim();
   }
 
   const ruleMatch = text.match(/\*\*Forensic Directive:\*\*\s*([\s\S]+?)$/i);
@@ -216,18 +217,14 @@ function parseGemmaResponse(text, sources, isWebSearch) {
     rule = ruleMatch[1].trim();
   }
 
-  const findingMatch = text.match(/\*\*Forensic Investigation:\*\*([\s\S]+?)(?=\*\*Forensic Directive:|$)/i);
-  if (findingMatch) {
-    answerBody = findingMatch[1].trim();
-  } else {
-    // Clean up raw markdown if headers aren't strict
-    answerBody = text
-      .replace(/###\s*VERDICT:.*?(\n|$)/gi, '')
-      .replace(/\*\*Verdict Category:\*\*.*?(\n|$)/gi, '')
-      .replace(/\*\*Statutory Citation:\*\*.*?(\n|$)/gi, '')
-      .replace(/\*\*Forensic Directive:\*\*.*?(\n|$)/gi, '')
-      .trim();
-  }
+  // Clean formatted body
+  answerBody = text
+    .replace(/###\s*VERDICT:[\s\S]*?\n\n/i, '')
+    .replace(/\*\*Verdict Category:\*\*[\s\S]*?\n\n/i, '')
+    .replace(/\*\*Statutory Citation:\*\*[\s\S]*?\n\n/i, '')
+    .replace(/\*\*Forensic Investigation:\*\*\s*/i, '')
+    .replace(/\*\*Forensic Directive:\*\*[\s\S]*$/i, '')
+    .trim();
 
   return {
     title: title,
@@ -249,6 +246,16 @@ function initDebunkyChat() {
   const formEl = document.getElementById('debunky-form');
   if (!chatWindow || !formEl) return;
 
+  function scrollToChatBottom() {
+    if (!chatWindow) return;
+    setTimeout(() => {
+      chatWindow.scrollTo({
+        top: chatWindow.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 40);
+  }
+
   function appendMessage(role, contentObj) {
     if (role === 'user') {
       const userDiv = document.createElement('div');
@@ -258,7 +265,7 @@ function initDebunkyChat() {
         <span>${escapeHtml(contentObj.text)}</span>
       `;
       chatWindow.appendChild(userDiv);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
+      scrollToChatBottom();
       return;
     }
 
@@ -293,7 +300,7 @@ function initDebunkyChat() {
         <div class="case-meta-left">
           <span class="atlas-pulse-dot"></span>
           <span class="case-ref-tag">CASE-REF #MD-2026-${caseHash}</span>
-          <span>// ${contentObj.isWebSearch ? 'GEMMA 4-26B + LIVE WEB' : 'GEMMA 4-26B FORENSIC DESK'}</span>
+          <span>// ${contentObj.isWebSearch ? 'DEBUNKY AI + LIVE WEB' : 'DEBUNKY FORENSIC DESK'}</span>
         </div>
         <div>
           <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">
@@ -329,7 +336,7 @@ function initDebunkyChat() {
     `;
 
     chatWindow.appendChild(caseDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    scrollToChatBottom();
   }
 
   function formatBodyMarkdown(text) {
@@ -367,22 +374,22 @@ function initDebunkyChat() {
     typingDiv.innerHTML = `
       <span class="atlas-pulse-dot"></span>
       <span class="font-mono" style="font-size: 0.72rem; color: var(--ink-secondary); margin-right: 6px; font-weight: 700;">
-        ${isWebSearchActive ? 'GEMMA 4-26B: GROUNDING VIA LIVE WEB SEARCH...' : 'GEMMA 4-26B: INTERROGATING STATUTORY LEDGER...'}
+        ${isWebSearchActive ? 'DEBUNKY AI: GROUNDING VIA LIVE WEB SEARCH...' : 'DEBUNKY AI: INTERROGATING STATUTORY LEDGER...'}
       </span>
       <span class="debunky-typing-dot"></span>
       <span class="debunky-typing-dot"></span>
       <span class="debunky-typing-dot"></span>
     `;
     chatWindow.appendChild(typingDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    scrollToChatBottom();
 
     try {
-      // Execute live Gemma 4-26B call with web search grounding
-      const response = await callGemmaForensics(cleanText, isWebSearchActive);
+      // Execute live forensic AI call with web search grounding
+      const response = await callDebunkyForensics(cleanText, isWebSearchActive);
       typingDiv.remove();
       appendMessage('bot', response);
     } catch (err) {
-      console.warn("Gemma API fallback activated:", err);
+      console.warn("Forensic API fallback activated:", err);
       typingDiv.remove();
       // Graceful offline/local knowledge fallback
       const fallback = getDebunkyFallback(cleanText);
@@ -406,7 +413,7 @@ function initDebunkyChat() {
           <div class="case-meta-left">
             <span class="atlas-pulse-dot"></span>
             <span class="case-ref-tag">SYSTEM // FORENSIC TERMINAL READY</span>
-            <span>// GEMMA 4-26B + LIVE WEB GROUNDING</span>
+            <span>// DEBUNKY AI + LIVE WEB GROUNDING</span>
           </div>
           <div>
             <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">AUDITS: UNLIMITED</span>
@@ -420,7 +427,7 @@ function initDebunkyChat() {
             </span>
           </div>
           <p class="case-finding-text">
-            Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly with Gemma 4-26B AI and live web grounding.
+            Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly with Debunky AI and live web grounding.
           </p>
           <div class="case-citation-row">
             <span class="case-citation-label">AUDIT PROTOCOL:</span>
@@ -429,6 +436,7 @@ function initDebunkyChat() {
         </div>
       </div>
     `;
+    scrollToChatBottom();
   };
 }
 
@@ -516,7 +524,7 @@ window.toggleVoiceTyping = function() {
     isVoiceRecording = false;
     if (micBtn) micBtn.classList.remove('recording');
     if (micLabel) micLabel.textContent = 'Voice';
-    if (inputEl) inputEl.placeholder = 'Ask anything or audit any stock tip with Gemma 4-26B + Live Web Search...';
+    if (inputEl) inputEl.placeholder = 'Ask anything or audit any stock tip with Debunky AI + Live Web Search...';
   }
 };
 

@@ -114,6 +114,12 @@
             <!-- Layer 2: Creator Forensic Media -->
             <div class="iso-card iso-card-middle">
               <div class="iso-host-media">
+                <a href="#channels" onclick="event.stopPropagation(); document.getElementById('channels').scrollIntoView({behavior:'smooth'});" style="text-decoration: none;" title="Click to watch latest forensic video investigation">
+                  <div class="font-mono" style="position: absolute; top: 12px; right: 12px; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(0, 229, 153, 0.6); padding: 5px 12px; border-radius: 9999px; font-size: 0.68rem; color: #FFFFFF; font-weight: 800; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); z-index: 6; cursor: pointer; transition: all 0.2s ease;">
+                    <span style="color: var(--green); font-size: 0.72rem;">▶</span>
+                    <span>WATCH VIDEO ↗</span>
+                  </div>
+                </a>
                 <img src="assets/img/creator_reaction.jpg" alt="Market Debunk Lead Investigator Auditing Financial Myth">
                 <div class="iso-host-overlay">
                   <div>
@@ -289,6 +295,70 @@
           </div>
         </div>
 
+        <!-- FEATURED FORENSIC VIDEO INVESTIGATION & AUTOMATED DRIVE/YOUTUBE FEED -->
+        <div class="latest-upload-card" style="background: #0F172A; border-radius: 20px; padding: 22px 26px; margin-bottom: 24px; color: #FFFFFF; box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12); border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="atlas-pulse-dot" style="background: #EF4444; box-shadow: 0 0 10px #EF4444;"></span>
+              <span class="font-mono" style="font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; color: #F8FAFC;">
+                FEATURED FORENSIC VIDEO BROADCAST // PIPELINE
+              </span>
+              <span id="latest-feed-status" class="font-mono" style="font-size: 0.65rem; color: var(--green); background: rgba(0, 229, 153, 0.12); border: 1px solid rgba(0, 229, 153, 0.35); padding: 2px 8px; border-radius: 9999px;">
+                <span class="pulse-dot-green"></span> LIVE SYNC ACTIVE
+              </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span id="latest-feed-sync" class="font-mono" style="font-size: 0.68rem; color: #94A3B8;">Auto-syncing with Drive &amp; YouTube…</span>
+              <button type="button" onclick="fetchLatestDriveUpload()" class="btn-pill btn-pill-ghost" style="padding: 4px 10px; font-size: 0.68rem; border-color: rgba(255,255,255,0.2); color: #FFFFFF;" title="Check for newest upload">
+                <span>Sync Now ↻</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center;">
+            <!-- Embedded Video Player -->
+            <div style="position: relative; border-radius: 14px; overflow: hidden; background: #020617; border: 1px solid rgba(255, 255, 255, 0.15); aspect-ratio: 16/9; min-height: 220px; max-height: 280px;">
+              <iframe 
+                id="featured-video-player"
+                src="https://www.youtube-nocookie.com/embed?listType=user_uploads&list=MarketDebunkTamil" 
+                title="Market Debunk Latest Video Investigation" 
+                style="width: 100%; height: 100%; border: none;"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <!-- Video Metadata & Direct Watch Buttons -->
+            <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
+                  <span id="latest-feed-tag" class="font-mono" style="background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.4); padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">
+                    VIDEO INVESTIGATION
+                  </span>
+                  <span id="latest-feed-date" class="font-mono" style="font-size: 0.7rem; color: #94A3B8;">
+                    Uploaded Recent
+                  </span>
+                </div>
+                <h3 id="latest-feed-title" style="font-size: 1.18rem; font-weight: 800; line-height: 1.35; margin-bottom: 10px; color: #FFFFFF; letter-spacing: -0.01em;">
+                  Episode 48: The "Safe 12% Dividend" Trap in Public REITs
+                </h3>
+                <p style="font-size: 0.82rem; color: #CBD5E1; line-height: 1.5; margin-bottom: 16px;">
+                  Unmasking phantom Return of Capital (ROC) distributions, accounting P/E deceptions, and capital erosion traps. Streamed directly from the production desk.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a id="latest-feed-link" href="https://www.youtube.com/@MarketDebunkTamil" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-green" style="padding: 9px 18px; font-size: 0.78rem; text-decoration: none;">
+                  <span>Watch on YouTube (Tamil) ↗</span>
+                </a>
+                <a href="https://www.youtube.com/@MarketDebunk" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-ghost" style="padding: 9px 16px; font-size: 0.78rem; border-color: rgba(255,255,255,0.25); color: #FFFFFF; text-decoration: none;">
+                  <span>English Channel ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="narrow-social-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
           
           <!-- 1. YouTube (Tamil) -->
@@ -459,7 +529,7 @@
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
             <div class="debunky-status-tag">
               <span class="atlas-pulse-dot"></span>
-              <span>GEMMA 4-26B // UNLIMITED</span>
+              <span>DEBUNKY NEURAL // UNLIMITED</span>
             </div>
             <button type="button" onclick="clearDebunkyChat()" class="btn-pill btn-pill-ghost" style="padding: 6px 14px; font-size: 0.74rem;">
               <span>Reset Session ↻</span>
@@ -475,7 +545,7 @@
               <div class="case-meta-left">
                 <span class="atlas-pulse-dot"></span>
                 <span class="case-ref-tag">SYSTEM // FORENSIC TERMINAL READY</span>
-                <span>// GEMMA 4-26B + LIVE WEB GROUNDING</span>
+                <span>// DEBUNKY AI + LIVE WEB GROUNDING</span>
               </div>
               <div>
                 <span class="font-mono" style="font-size: 0.65rem; color: var(--green-dark); font-weight: 700;">AUDITS: UNLIMITED</span>
@@ -489,7 +559,7 @@
                 </span>
               </div>
               <p class="case-finding-text">
-                Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly with Gemma 4-26B AI and live web grounding.
+                Audit any Indian share market tip, viral finfluencer recommendation, high-dividend scheme, or balance sheet anomaly with Debunky AI and live web grounding.
               </p>
               <div class="case-citation-row">
                 <span class="case-citation-label">AUDIT PROTOCOL:</span>

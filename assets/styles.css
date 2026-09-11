@@ -2230,19 +2230,49 @@ body {
 }
 
 .debunky-chat-window {
-  min-height: 420px;
-  max-height: 560px;
+  height: 520px;
+  min-height: 400px;
+  max-height: 620px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   background: var(--bg-surface);
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 153, 0.45) rgba(15, 23, 42, 0.05);
+}
+
+/* Custom High-Precision Scrollbar for Terminal Stream */
+.debunky-chat-window::-webkit-scrollbar {
+  width: 7px;
+}
+
+.debunky-chat-window::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: 9999px;
+  margin: 6px 0;
+}
+
+.debunky-chat-window::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.22);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: background 0.2s ease;
+}
+
+.debunky-chat-window::-webkit-scrollbar-thumb:hover {
+  background: var(--green-dark);
 }
 
 /* User Prompt in Terminal Style */
 .debunky-user-query {
+  flex-shrink: 0;
   align-self: flex-end;
   background: var(--ink-primary);
   color: #FFFFFF;
@@ -2267,6 +2297,7 @@ body {
 
 /* Bot Forensic Case Record (Replacing Speech Bubble) */
 .debunky-case-record {
+  flex-shrink: 0;
   align-self: flex-start;
   width: 100%;
   max-width: 900px;
@@ -2276,6 +2307,40 @@ body {
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
   overflow: hidden;
   animation: case-fade-in 0.25s ease forwards;
+}
+
+.debunky-typing-indicator {
+  flex-shrink: 0;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  padding: 10px 18px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.debunky-typing-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green-dark);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.debunky-typing-dot:nth-child(2) {
+  animation-delay: -0.32s;
+}
+
+.debunky-typing-dot:nth-child(3) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes case-fade-in {
@@ -2457,8 +2522,9 @@ body {
   }
   .debunky-chat-window {
     padding: 16px 14px;
-    min-height: 280px;
-    max-height: 400px;
+    height: 420px;
+    min-height: 320px;
+    max-height: 520px;
   }
   .debunky-chips-container {
     padding: 10px 14px;
@@ -2957,7 +3023,7 @@ body {
 }
 
 /* ==========================================================================
-   16. GEMMA 4-26B AI AGENT & WEB SEARCH TOGGLE SWITCH
+   16. DEBUNKY NEURAL FORENSIC ENGINE & WEB SEARCH TOGGLE SWITCH
    ========================================================================== */
 .debunky-input-toolbar {
   display: flex;
